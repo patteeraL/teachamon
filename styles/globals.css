@@ -8,10 +8,35 @@ body{
   align-items: center;
 }
 
+.mainbtn {
+  font-family: 'Inter';
+  width: 365px;
+  height: 49px;
+  background: #B0B0B0;
+  color: black;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 24px;
+  border-radius: 12px;
+}
+
+.mainbtn:hover{
+  background: #8d8d8d;
+}
+
+
 h3 {
   font-size: 12px;
 }
 
 h1{
   font-size: 35.4px;
+}
+
+h2{
+  font-size: 24px;
 }

@@ -1,0 +1,30 @@
+.container{
+    background: white;
+    width: 402px;
+    height: 100vh;
+    padding: 0 20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.monbtn{
+    background: #E9D19C;
+    border-radius: 37px;
+    border: 2px solid black;
+}
+
+.monbtn:hover{
+    background: #b09d76;
+}
+
+.monoptions {
+    width: 362px;         
+    height: fit-content;       
+    display: flex;               
+    flex-direction: row;        
+    column-gap: 10px;      
+    padding-top: 30px; 
+    margin-bottom: 100px;       
+  }
+  
