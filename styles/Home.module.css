@@ -24,22 +24,28 @@
 .bg{
     width: 402px;
     height: 100vh;
-    background: rgb(159, 60, 2);
+    background: rgb(255, 175, 128);
     display:flex;
     flex-direction: column;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .btngroup{
-    margin-bottom: 10vh;
+    margin: 5vh 0;
 }
 
 .ranking{
-    margin-left: 10px;
+    margin-left: 20px;
     margin-top: 50px;
     margin-bottom: 20px;
 
+}
+
+.monname{
+    background: white;
+    padding: 5px;
+    margin-top: 2vh;
 }
 
 .orderedList {
@@ -47,4 +53,64 @@
     font-size: 18px;
     list-style-type: decimal; /* Default numbering (1, 2, 3) */
     padding-left: 20px; /* Space for the numbering */
+  }
+
+  .statusbar{
+    width: 382px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .attack, .defense {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    margin: 5px 0;
+    border-radius: 10px;
+  }
+  
+  .attackBar {
+    height: 100%;
+    background-color: #ff5722; 
+    border-radius: 10px;
+  }
+  
+  .defenseBar {
+    height: 100%;
+    background-color: #3f51b5;
+    border-radius: 10px;
+  }
+  
+  .stage {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .attacktitle {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    color: #ff5722;
+  }
+  .defensetitle {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0;
+    color: #3f51b5;
+  }
+  
+  
+  .mon {
+    margin: 20px 0;
+  }
+
+  .yourRank{
+    font-weight: 900;
+    font-family: "Inter";
   }
