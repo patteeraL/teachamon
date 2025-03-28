@@ -17,7 +17,10 @@
 .monbtn:hover{
     background: #b09d76;
 }
-
+.selected {
+    background-color: #b09d76;  
+    border: 5px solid black;
+  }
 .monoptions {
     width: 362px;         
     height: fit-content;       
