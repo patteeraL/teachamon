@@ -19,7 +19,7 @@ body{
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 15px 0;
   font-size: 24px;
   border-radius: 12px;
 }
@@ -29,7 +29,7 @@ body{
 }
 
 
-h3 {
+h5 {
   font-size: 12px;
 }
 
@@ -39,4 +39,26 @@ h1{
 
 h2{
   font-size: 24px;
+}
+
+h3{
+  font-size: 20px;
+}
+
+h4{
+  font-size: 18px;
+}
+
+
+.input{
+  height: 49px;
+  width: 365px;
+  background: #ECE6E6;
+  color: black;
+  border-radius: 12px;
+  border: 2px solid black;
+  padding: 10px;
+  font-family: "Inter";
+  font-size: 24px;
+  margin: 15px 0;
 }

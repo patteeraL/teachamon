@@ -4,6 +4,47 @@
     height: 100vh;
     display:flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
+
+.nav{
+    width: 402px;
+    height: 283px;
+    background: #D9D9D9;
+    color: black;
+}
+
+.nav h3{
+    margin-top: 30px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bg{
+    width: 402px;
+    height: 100vh;
+    background: rgb(159, 60, 2);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+.btngroup{
+    margin-bottom: 10vh;
+}
+
+.ranking{
+    margin-left: 10px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+}
+
+.orderedList {
+    font-family: "Inter";
+    font-size: 18px;
+    list-style-type: decimal; /* Default numbering (1, 2, 3) */
+    padding-left: 20px; /* Space for the numbering */
+  }

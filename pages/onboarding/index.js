@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Index() {
   const [selectedMon, setSelectedMon] = useState("");
-  const handleImageClick = (monName) => {
-    setSelectedMon(monName); 
+  const handleImageClick = (monNo) => {
+    setSelectedMon(monNo); 
+    console.log("monNo:", monNo);
   };
   return (
     <>
