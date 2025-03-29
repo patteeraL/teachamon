@@ -4,11 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import InputAns from "@/components/input_ans";
 import { useEffect, useState } from 'react';
+import axios from "axios";
 
 export default function MathsChat() {
   const [subject, setSubject] = useState('');
   const [monName, setMonname] = useState(""); 
   const [selectedMon, setSelectedMon] = useState(''); 
+  const [answer, setAnswer] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [score, setScore] = useState(null);
+  const [answerStatus, setAnswerStatus] = useState("");
+  const question = "What is the Pythagorean Theorem?"; // update to fetch from Supabase
 
   useEffect(() => {
     const storedSubject = localStorage.getItem('subject');
@@ -24,6 +30,25 @@ export default function MathsChat() {
       setSelectedMon(storedMonId);
     }
   }, []);
+
+  const handleSubmit = async () => {
+    // Build a single message string combining the question and user's answer
+    const message = `Question: ${question}\n\nUser's answer: ${answer}`;
+
+    try {
+      console.log("📤 Sending to API:", message);
+      const response = await axios.post("/api/openAI", { message });
+      // Destructure the response from the API
+      const { feedback, score, answerStatus } = response.data;
+      setFeedback(feedback);
+      setScore(score);
+      setAnswerStatus(answerStatus);
+    } catch (err) {
+      console.error("AI error:", err);
+      setFeedback("Something went wrong while contacting AI.");
+    }
+  };
+
 
   return (
     <>
@@ -45,18 +70,39 @@ export default function MathsChat() {
           </div>
         </div>
     
+        {/* Display feedback if available; otherwise, show the question */}
         <div>
           <h2 className={styles.question}>
-          Can you clarify this?
-          Say it in ur own words!
+            {feedback ? feedback : question}
           </h2>
         </div>
-        <div className={styles.row}>
-         <InputAns/>
-        </div>
-        <div>
-          <Link className={styles.mainbtn} type="submit" href={`/train/success`}>Submit</Link>
-        </div>
+
+        {/* Display score and answer status if feedback exists */}
+        {feedback && (
+          <div className={styles.feedbackDetails}>
+            <p>Score: {score}</p>
+            <p>Answer Status: {answerStatus}</p>
+          </div>
+        )}
+
+        {/* If no feedback, show the text area and submit button */}
+        {!feedback && (
+          <>
+            <div className={styles.row}>
+              <textarea
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                placeholder="Type your answer here..."
+                className={styles.input}
+              />
+            </div>
+            <div>
+              <button className={styles.mainbtn} onClick={handleSubmit}>
+                Submit
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
