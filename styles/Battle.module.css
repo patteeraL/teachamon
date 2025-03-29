@@ -1,9 +1,114 @@
-.container{
+.container {
     background: white;
     width: 402px;
     height: 100vh;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+.headline {
+    padding-top: 15%;
+    width: 100%;
+    text-align: left; /* Align text to the left */
+}
+
+.headline h1{
+    font-size: 20px;
+}
+
+.headline h3{
+    font-size: 12px;
+    opacity: 30%;
+}
+
+.battlecode {
+    padding-top: 25%;
+    font-size: 0.875rem; /* Shrink text size */
+    margin: 1rem 0;
+}
+
+.battlecode h1{
+    font-size: 20px;
+    text-align: center;
+}
+
+.battlecode h3{
+    font-size: 12px;
+    opacity: 30%;
+}
+
+.spritesrow {
+    padding-top: 25%;
+    display: flex;
+    justify-content: space-between; /* Align sprites horizontally with space between */
+    width: 100%;
+}
+
+.spritename {
+    text-align: center;
+}
+
+.spritebox {
+    text-align: center;
+}
+.monName {
+    font-size: 1rem;
+    margin-bottom: 0.5rem; /* Space between name and sprite */
+    background-color: #e8e8e8;
+    display: inline-block;
+    padding: 4px 8px;
+    text-align: center;
+}
+
+.sprite1 {
+    scale: 80%;
+}
+
+.sprite2 {
+    scale: 80%;
+    filter: invert(1) brightness(0%) contrast(25%);
+}
+
+.waitingButton {
+    padding: 10px 10px;
+    background-color: #b0b0b0;
+    color: #000000;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cancelButton {
+    padding: 10px 10px;
+    background-color: #b0b0b0;
+    color: #000000;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cancelButton:hover {
+    background-color: red;
+}
+
+.btnsets {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 20px; /* Position button near the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: column;
     align-items: center;
 }
+  
