@@ -56,8 +56,8 @@ export default function MathsChat() {
         <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={styles.container}>
-        <div>
+      <div className={styles.trainbg}>
+        <div className= {styles.title}>
           <h5>TRAINING</h5>
           <h3>{subject}</h3>
         </div>
@@ -69,21 +69,27 @@ export default function MathsChat() {
             <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
-    
-        {/* Display feedback if available; otherwise, show the question */}
+        <div className={styles.containerH}>
         <div>
-          <h2 className={styles.question}>
-            {feedback ? feedback : question}
-          </h2>
-        </div>
-
+          <p className={styles.monName}>{monName}</p><h6 className={styles.question}>
+           {/* Display feedback if available; otherwise, show the question */}
+          {feedback ? feedback : question}
+          </h6>
+  
+    
         {/* Display score and answer status if feedback exists */}
         {feedback && (
           <div className={styles.feedbackDetails}>
             <p>Score: {score}</p>
             <p>Answer Status: {answerStatus}</p>
+    
+        <Link className={styles.mainbtn} style={{ marginTop: '70px' }} href={`/train/success`}>
+              Next
+            </Link>
           </div>
+          
         )}
+        
 
         {/* If no feedback, show the text area and submit button */}
         {!feedback && (
@@ -93,16 +99,18 @@ export default function MathsChat() {
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Type your answer here..."
-                className={styles.input}
+                className={styles.textarea}
               />
             </div>
             <div>
-              <button className={styles.mainbtn} onClick={handleSubmit}>
+              <button className={styles.mainbtn} style={{marginTop:"50px"}} onClick={handleSubmit}>
                 Submit
               </button>
             </div>
           </>
         )}
+      </div>
+      </div>
       </div>
     </>
   );

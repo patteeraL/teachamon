@@ -35,27 +35,36 @@
 }
 
 .ranking{
-    margin-left: 20px;
-    margin-top: 50px;
-    margin-bottom: 20px;
-
+    margin-top: 20px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    filter: drop-shadow(0 4px 8px white);
+    padding: 0 10px;
+  
+}
+.ranktitle {
+    margin-left: 30px;
 }
 
 .monname{
     background: white;
     padding: 5px;
+    opacity: 0.6;
 }
 
 .orderedList {
-    font-family: "Inter";
-    font-size: 18px;
+   margin-left: 10px;
+    font-size: 10px;
     list-style-type: decimal; /* Default numbering (1, 2, 3) */
     padding-left: 20px; /* Space for the numbering */
+    filter: drop-shadow(white 0 0 0.75rem)
   }
 
   .statusbar{
     width: 382px;
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,24 +73,24 @@
   .attack, .defense {
     width: 100%;
     height: 20px;
-    background-color: #e0e0e0;
+    background-color: #D9D9D9;
     border-radius: 10px;
   }
   
   .attackBar {
     height: 100%;
-    background-color: #E55F42; 
+    background-color: #B4513C; 
     border-radius: 10px;
   }
   
   .defenseBar {
     height: 100%;
-    background-color: #6042E5;
+    background-color: #3C80B4;
     border-radius: 10px;
   }
   
   .stage {
-    font-family: "Inter";
+    
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -89,21 +98,23 @@
     font-weight: 700;
   }
   .attacktitle {
-    font-family: "Inter";
-    color: #ff5722;
+   font-size: 12px;
+    color: #B4513C;
   }
 
   .attackSkill, .defenseSkill{
-    font-family: "Inter";
+    
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 20px;
 
   }
 
   .defensetitle {
-    font-family: "Inter";
-    color: #3f51b5;
+    
+    color: #3C80B4;
+    font-size: 12px;
   }
   
   
@@ -113,7 +124,9 @@
 
   .yourRank{
     font-weight: 900;
-    font-family: "Inter";
+    font-size: 13px;
+
+   
   }
 
 .percentage{
@@ -131,7 +144,7 @@
 }
 
 .battleMenu {
-  background-color: white;
+  background-color: #F3E4CA;
   padding: 2rem;
   border-radius: 10px;
   width: 318px;
@@ -162,8 +175,8 @@
 
 .mainbtn {
   padding: 10px 10px;
-  background-color: #b0b0b0;
-  color: #000000;
+  background-color: #F6A714;
+  color: #4A3206;
   border-radius: 5px;
   text-decoration: none;
   display: inline-block;
@@ -173,8 +186,21 @@
   cursor: pointer;
 }
 
+.mainbtn2 {
+    padding: 10px 10px;
+    color: #F6A714;
+    background-color: #4A3206;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    cursor: pointer;
+  }
+
 .mainbtn:hover {
-  background-color: red;
+  background-color: #cf8c11;
 }
 
 .inputField {
@@ -182,5 +208,60 @@
   width: 100%;
   margin: 1rem 0;
   border-radius: 5px;
+  background: #FDFBF7;
   border: 1px solid #ccc;
+  color: #4A3206;
 }
+
+.statusbg{
+    background: #F3E4CA;
+    width: 402px;
+    height: 385px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trainbtn {
+  font-family: 'Press Start 2P';
+  width: 365px;
+  height: 49px;
+  background: #F6A714;
+  color: #4A3206;
+  border: 2px solid #d99312;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 15px 0;
+  font-size: 24px;
+  border-radius: 12px;
+}
+
+.bttbtn {
+    font-family: 'Press Start 2P';
+    width: 365px;
+    height: 49px;
+    color: #F6A714;
+    background: #4A3206;
+    text-align: center;
+    border: 2px solid #7c5204;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 15px 0;
+    font-size: 24px;
+    border-radius: 12px;
+  }
+
+  .title{
+    width: 402px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
