@@ -1,27 +1,59 @@
 import styles from "@/styles/Home.module.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function Index() {
   const [isPanelOpen, setPanelOpen] = useState(false);
-  const [Monname, setMonname] = useState(""); 
-  const [selectedMon, setSelectedMon] = useState(''); 
-      useEffect(() => {
-        
-          const storedMonName = localStorage.getItem('Monname');
-          const storedMonId = localStorage.getItem('monId');
-          if (storedMonName) {
-            setMonname(storedMonName);
-          }
-          if (storedMonId) {
-            setSelectedMon(storedMonId);
-        }
-        }, []);
+  const [Monname, setMonname] = useState("");
+  const [selectedMon, setSelectedMon] = useState("");
+  const [rankings, setRankings] = useState([]);
+  const [attackPercentage, setAttackPercentage] = useState(0);
+  const [defensePercentage, setDefensePercentage] = useState(0);
 
-  const attackPercentage = 90;
-  const defensePercentage = 90;
+  useEffect(() => {
+    const storedMonName = localStorage.getItem("Monname");
+    const storedMonId = localStorage.getItem("monId");
+
+    if (storedMonName) setMonname(storedMonName);
+    if (storedMonId) setSelectedMon(storedMonId);
+
+    fetchRankings();
+    fetchStats(storedMonName);
+  }, []);
+
+  async function fetchRankings() {
+    const { data, error } = await supabase
+      .from("rankings")
+      .select("username, wins")
+      .order("wins", { ascending: false })
+      .limit(10);
+
+    if (error) console.error("Error fetching rankings:", error);
+    else setRankings(data);
+  }
+
+  async function fetchStats(monsterName) {
+    if (!monsterName) return;
+    const { data, error } = await supabase
+      .from("monsters")
+      .select("attack, defense")
+      .eq("name", monsterName)
+      .single();
+
+    if (error) console.error("Error fetching stats:", error);
+    else {
+      setAttackPercentage((data.attack / 500) * 100);
+      setDefensePercentage((data.defense / 500) * 100);
+    }
+  }
 
   return (
     <>
@@ -35,11 +67,16 @@ export default function Index() {
           <div className={styles.ranking}>
             <h4>Rankings</h4>
             <ol className={styles.orderedList} type="1">
-              <li>Thee | 10 wins</li>
-              <li>Ice | 9 wins</li>
-              <li>ティチモン | 8 wins</li>
+              {rankings.length > 0 ? (
+                rankings.map((player, index) => (
+                  <li key={index}>
+                    {player.username} | {player.wins} wins
+                  </li>
+                ))
+              ) : (
+                <p>Loading rankings...</p>
+              )}
             </ol>
-            <h4 className={styles.yourRank}>10. You | 0 wins</h4>
           </div>
         </div>
         <div className={styles.bg}>
@@ -47,7 +84,12 @@ export default function Index() {
             <h3>{Monname}</h3>
           </div>
           <div className={styles.mon}>
-            <Image src= {selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"} width={224} height={224} alt="mon" />
+            <Image
+              src={selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"}
+              width={224}
+              height={224}
+              alt="mon"
+            />
           </div>
 
           <div className={styles.statusbar}>
@@ -94,27 +136,20 @@ export default function Index() {
             <div className={styles.darkpanel}>
               <div className={styles.battleMenu}>
                 <h2 className={styles.battleTopic}>Battle</h2>
-                
+
                 <div>
-                  {/* Create Room and Join Room buttons */}
                   <Link href="/battle" legacyBehavior>
                     <a className={styles.mainbtn}>Create Room</a>
                   </Link>
                   <p>or</p>
-                  <input 
-                    type="text" 
-                    placeholder="Enter Code" 
-                    className={styles.inputField} // Use the scoped class
-                  />
+                  <input type="text" placeholder="Enter Code" className={styles.inputField} />
                   <Link href="/battle" legacyBehavior>
-                    <a className={styles.mainbtn}>Join Room</a> 
+                    <a className={styles.mainbtn}>Join Room</a>
                   </Link>
-
                 </div>
 
-                {/* Close button at the top right */}
                 <button className={styles.closebtn} onClick={() => setPanelOpen(false)}>
-                  &times; {/* 'X' symbol */}
+                  &times;
                 </button>
               </div>
             </div>
