@@ -9,15 +9,26 @@ export default function Success() {
   const attackPercentage = 90;
   const defensePercentage = 90; 
   const [subject, setSubject] = useState('');
- useEffect(() => {
-   
-     const storedSubject = localStorage.getItem('subject');
-     if (storedSubject) {
-       setSubject(storedSubject);
-     }
-   }, []);
+  const [monName, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState(''); 
+
+  useEffect(() => {
+    const storedSubject = localStorage.getItem('subject');
+    const storedMonName = localStorage.getItem('Monname');
+    const storedMonId = localStorage.getItem('monId');
+    if (storedSubject) {
+      setSubject(storedSubject);
+    }
+    if (storedMonName) {
+      setMonname(storedMonName);
+    }
+    if (storedMonId) {
+      setSelectedMon(storedMonId);
+    }
+  }, []);
   const skillStyle = {
-    fontFamily: 'Inter',
+   
+    fontSize: '13px',
     color: subject === 'Maths' ? '#E55F42' : '#6042E5', 
   };
   const attackSkill = (<>
@@ -32,31 +43,34 @@ export default function Success() {
         <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={Trainstyles.container}>
-        <div>
+      <div className={Trainstyles.trainbg}>
+        <div className= {Trainstyles.title}>
           <h5>TRAINING</h5>
-          <h3>Success</h3>
+          <h3 style={{color: '#3CB476' }}>Success</h3>
         </div>
         <div className={Trainstyles.row}>
           <div className={Trainstyles.monname}>
-            <h3>Nicks</h3>
+            <h3>{monName}</h3>
           </div>
           <div>
-            <Image src="/mon1.svg" width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
+        <div className={Trainstyles.containerH}>
         <div>
-          <h2 className={Trainstyles.question}>
-          TYSM!!!
-          </h2>
+          <p className={styles.monName} style={{color: '#3C80B4' }} >{monName}</p><h6 className={styles.question}>
+          Thank you so much!
+          I feel a lot smarter!
+          </h6>
         </div>
         <div className={Trainstyles.row}>
+          <h2 style={{ marginTop: '50px', fontSize: '20px' }} >Total XP</h2>
         <div className={subject === "Maths" ? styles.attackSkill : styles.defenseSkill}>
         <h4 style={skillStyle}>
         {subject === "Maths" ? attackSkill : defenseSkill}
-      </h4>
+      </h4><p style={{ fontSize: '12px' }}>(400 to 455)</p>
             </div>
-            <div className={subject === "Maths" ? styles.attack : styles.defense}>
+            <div className={subject === "Maths" ? styles.attack : styles.defense} style={{ marginTop: '10px' }}>
               <div
                 className= {subject === "Maths" ? styles.attackBar : styles.defenseBar}
                 style={subject === "Maths" ? { width: `${attackPercentage}%` } : { width: `${defensePercentage}%` }}
@@ -64,8 +78,9 @@ export default function Success() {
             </div>
           </div>
         <div>
-          <Link className={Trainstyles.mainbtn} href="../home">Back to Menu</Link>
+          <Link className={Trainstyles.mainbtn} style={{ marginTop: '100px' }} href="../home">Back to Menu</Link>
         </div>
+      </div>
       </div>
     </>
   );

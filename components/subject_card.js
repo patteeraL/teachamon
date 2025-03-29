@@ -36,7 +36,13 @@ export default function SubjectCard({ onClick, subject, selected, characterName 
   const bar = subject === "Maths" ? styles.attackBar : styles.defenseBar;
   const type = subject === "Maths" ? styles.attack : styles.defense;
   const title = subject === "Maths" ? styles.attacktitle : styles.defensetitle;
-  const type_title = subject === "Maths" ? "Attack" : "Defense";
+  const type_title = subject === "Maths" ? "Increases Attack XP" : "Increases Defense XP";
+
+  const attackPercentage = 90;
+  const defensePercentage = 90;
+
+  const percentage = subject === "Maths" ? attackPercentage : defensePercentage;
+
 
   return (
     <div
@@ -46,10 +52,17 @@ export default function SubjectCard({ onClick, subject, selected, characterName 
       <div className={trainStyles.subject}>{subject}</div>
       <div className={skill}>
         <h4 className={title}>{type_title}</h4>
-        <h4>{xp}/500</h4>
+        
       </div>
       <div className={type}>
-        <div className={bar} style={{ width: `${percentage}%` }}></div>
+        <div
+          className={bar}
+          style={{ width: `${percentage}%` }}
+        ></div>
+        <div className={skill}>
+        <h5>Current XP</h5>
+        <h4 className={trainStyles.percentage}>{percentage * 5}/500</h4>
+        </div>
       </div>
     </div>
   );

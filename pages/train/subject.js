@@ -38,8 +38,8 @@ export default function Subject() {
         <title>{subject} | Teachamon</title>
         <meta name="keyword" content="" />
       </Head>
-      <div className={styles.container}>
-        <div>
+        <div className = {styles.trainbg}>
+        <div className= {styles.title}>
           <h5>TRAINING</h5>
           <h3>{subject}</h3>
         </div>
@@ -50,26 +50,31 @@ export default function Subject() {
           <div>
             <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon" />
           </div>
+          
         </div>
-
-        {/* Subject Card (XP Display) */}
-        <SubjectCard subject="Maths" characterName={monName} />
-        <SubjectCard subject="Science" characterName={monName} />
-
+        <div className={styles.containerH}>
+  
         <div>
-          <h2 className={styles.question}>Teach me!</h2>
-        </div>
-        <div>
-          <h2 className={styles.question}>20 in Decimal is how much in Binary?</h2>
+          <p className={styles.monName}>{monName}</p><h6 className={styles.question}>
+            How do I convert a decimal number into binary?
+          </h6>
         </div>
         <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="10100" />
         <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="11111" />
         <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="IDK" />
         <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="All is correct" />
         <div>
-          <Link className="mainbtn" type="submit" href={`/train/done`}>Submit</Link>
+        <Link
+  className={`${styles.mainbtn} ${!selectedChoice ? styles.disabledBtn : ''}`}
+  style={{ marginTop: '30px' }}  
+  type="submit"
+  href={`/train/done`}
+>
+  Submit
+</Link>
         </div>
-      </div>
+        </div>
+        </div>
     </>
   );
 }

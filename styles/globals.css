@@ -9,11 +9,12 @@ body{
 }
 
 .mainbtn {
-  font-family: 'Inter';
+  font-family: 'Press Start 2P';
   width: 365px;
   height: 49px;
-  background: #B0B0B0;
-  color: black;
+  background: #F6A714;
+  color: #4A3206;
+  border: 2px solid #d99312;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -25,7 +26,7 @@ body{
 }
 
 .mainbtn:hover{
-  background: #8d8d8d;
+  background: #d99312;
 }
 
 
@@ -48,17 +49,19 @@ h3{
 h4{
   font-size: 18px;
 }
-
+h6{
+  font-size: 13px;
+}
 
 .input{
+  font-family: 'Press Start 2P';
   height: 49px;
   width: 365px;
-  background: #ECE6E6;
+  background: #FDFBF7;
   color: black;
   border-radius: 12px;
-  border: 2px solid black;
+  border: 2px solid #cacac9;
   padding: 10px;
-  font-family: "Inter";
   font-size: 24px;
   margin: 15px 0;
 }

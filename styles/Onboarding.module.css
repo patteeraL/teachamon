@@ -1,5 +1,6 @@
+
 .container{
-    background: white;
+    background: #F3E4CA;
     width: 402px;
     height: 100vh;
     padding: 0 20px;
@@ -11,14 +12,14 @@
 .monbtn{
     background: #E9D19C;
     border-radius: 37px;
-    border: 2px solid black;
+    border: 2px solid #b79a5a;
 }
 
 .monbtn:hover{
-    background: #b09d76;
+    background: #E9D19C;
 }
 .selected {
-    background-color: #b09d76;  
+    background-color: #E9D19C;  
     border: 5px solid black;
   }
 .monoptions {

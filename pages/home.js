@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { supabase } from '@/lib/supabase';
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -12,48 +13,60 @@ const supabase = createClient(
 
 export default function Index() {
   const [isPanelOpen, setPanelOpen] = useState(false);
-  const [Monname, setMonname] = useState("");
-  const [selectedMon, setSelectedMon] = useState("");
-  const [rankings, setRankings] = useState([]);
-  const [attackPercentage, setAttackPercentage] = useState(0);
-  const [defensePercentage, setDefensePercentage] = useState(0);
+  const [Monname, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState('');
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [userRank, setUserRank] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const attackPercentage = 90;
+  const defensePercentage = 90;
 
   useEffect(() => {
-    const storedMonName = localStorage.getItem("Monname");
-    const storedMonId = localStorage.getItem("monId");
-
+    // Load character selection from localStorage
+    const storedMonName = localStorage.getItem('Monname');
+    const storedMonId = localStorage.getItem('monId');
     if (storedMonName) setMonname(storedMonName);
     if (storedMonId) setSelectedMon(storedMonId);
 
-    fetchRankings();
-    fetchStats(storedMonName);
+    // Fetch leaderboard data from view table
+    const fetchLeaderboardData = async () => {
+      try {
+        // Fetch top players from the view
+        const { data: leaderboardData, error } = await supabase
+          .from('leaderboard') // Your view table
+          .select('username, wins, rank')
+          .order('rank', { ascending: true });
+
+        if (error) throw error;
+
+        // Get top 3 players
+        const topPlayers = leaderboardData.slice(0, 5);
+        setLeaderboard(topPlayers);
+
+        // Get current user's rank
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser?.username) {
+          const userRankData = leaderboardData.find(
+            player => player.username === currentUser.username
+          );
+          setUserRank(userRankData);
+        }
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+        // Fallback data if view is empty or error occurs
+        setLeaderboard([
+          { username: "Thee", wins: 10, rank: 1 },
+          { username: "Ice", wins: 9, rank: 2 },
+          { username: "ティチモン", wins: 8, rank: 3 }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeaderboardData();
   }, []);
-
-  async function fetchRankings() {
-    const { data, error } = await supabase
-      .from("rankings")
-      .select("username, wins")
-      .order("wins", { ascending: false })
-      .limit(10);
-
-    if (error) console.error("Error fetching rankings:", error);
-    else setRankings(data);
-  }
-
-  async function fetchStats(monsterName) {
-    if (!monsterName) return;
-    const { data, error } = await supabase
-      .from("monsters")
-      .select("attack, defense")
-      .eq("name", monsterName)
-      .single();
-
-    if (error) console.error("Error fetching stats:", error);
-    else {
-      setAttackPercentage((data.attack / 500) * 100);
-      setDefensePercentage((data.defense / 500) * 100);
-    }
-  }
 
   return (
     <>
@@ -63,44 +76,60 @@ export default function Index() {
       </Head>
       <div className={styles.container}>
         <div className={styles.nav}>
-          <h3>TEACHAMON</h3>
+          <div className={styles.title}>
+            <h5>The Adventure of</h5>
+          <h2>TEACHAMON</h2>
+          </div>
+          
           <div className={styles.ranking}>
             <h4>Rankings</h4>
-            <ol className={styles.orderedList} type="1">
-              {rankings.length > 0 ? (
-                rankings.map((player, index) => (
-                  <li key={index}>
-                    {player.username} | {player.wins} wins
-                  </li>
-                ))
-              ) : (
-                <p>Loading rankings...</p>
-              )}
-            </ol>
+            {loading ? (
+              <div className={styles.loading}>Loading rankings...</div>
+            ) : (
+              <>
+                <ol className={styles.orderedList}>
+                  {leaderboard.map((player) => (
+                    <li key={`${player.username}-${player.rank}`}>
+                      {player.username} | {player.wins} wins
+                    </li>
+                  ))}
+                </ol>
+                
+              </>
+            )}
           </div>
+  
         </div>
         <div className={styles.bg}>
           <div className={styles.monname}>
             <h3>{Monname}</h3>
           </div>
           <div className={styles.mon}>
-            <Image
-              src={selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"}
-              width={224}
-              height={224}
-              alt="mon"
+            <Image 
+              src={selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"} 
+              width={224} 
+              height={224} 
+              alt="mon" 
+              priority
             />
           </div>
-
+          {userRank ? (
+                  <h4 className={styles.yourRank}>
+                    You | {userRank.wins} wins
+                  </h4>
+                ) : (
+                  <h4 className={styles.yourRank}>Unranked | 0 wins</h4>
+                )}
+          <div className={styles.statusbg}>
           <div className={styles.statusbar}>
             <div className={styles.stage}>
-              <h4>Stage 1</h4>
-              <h4>Lvl.1</h4>
+              <h5>Stage 1</h5>
+              <h5>Lvl.1</h5>
             </div>
 
             <div className={styles.attackSkill}>
-              <h4 className={styles.attacktitle}>Attack</h4>
-              <h4 className={styles.percentage}>{attackPercentage * 5}/500</h4>
+              <h5 className={styles.attacktitle}>Attack</h5>
+              <h5 className={styles.percentage}>{attackPercentage * 5}/500</h5>
             </div>
             <div className={styles.attack}>
               <div
@@ -110,8 +139,8 @@ export default function Index() {
             </div>
 
             <div className={styles.defenseSkill}>
-              <h4 className={styles.defensetitle}>Defense</h4>
-              <h4 className={styles.percentage}>{defensePercentage * 5}/500</h4>
+              <h5 className={styles.defensetitle}>Defense</h5>
+              <h5 className={styles.percentage}>{defensePercentage * 5}/500</h5>
             </div>
             <div className={styles.defense}>
               <div
@@ -121,39 +150,43 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Buttons */}
           <div className={styles.btngroup}>
             <Link href="/train" legacyBehavior>
-              <a className="mainbtn">Train</a>
+              <a className={styles.trainbtn}>Train</a>
             </Link>
-            <button className="mainbtn" onClick={() => setPanelOpen(true)}>
+            <button className={styles.bttbtn} onClick={() => setPanelOpen(true)}>
               Battle
             </button>
           </div>
 
-          {/* Battle Overlay */}
           {isPanelOpen && (
             <div className={styles.darkpanel}>
               <div className={styles.battleMenu}>
                 <h2 className={styles.battleTopic}>Battle</h2>
-
                 <div>
                   <Link href="/battle" legacyBehavior>
                     <a className={styles.mainbtn}>Create Room</a>
                   </Link>
                   <p>or</p>
-                  <input type="text" placeholder="Enter Code" className={styles.inputField} />
+                  <input 
+                    type="text" 
+                    placeholder="Enter Code" 
+                    className={styles.inputField}
+                  />
                   <Link href="/battle" legacyBehavior>
-                    <a className={styles.mainbtn}>Join Room</a>
+                    <a className={styles.mainbtn2}>Join Room</a> 
                   </Link>
                 </div>
-
-                <button className={styles.closebtn} onClick={() => setPanelOpen(false)}>
+                <button 
+                  className={styles.closebtn} 
+                  onClick={() => setPanelOpen(false)}
+                >
                   &times;
                 </button>
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
     </>

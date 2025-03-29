@@ -19,7 +19,7 @@ export default function Mon() {
       <title>Onboarding | Teachamon</title>
       <meta name="keyword" content=""/>
     </Head>
-    <div className={styles.container}><h2>Give it a name</h2>
+    <div className={styles.container}><h2>Lets Give it a Name!</h2>
     <div className={styles.avatar}><Image src= {selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"} width={258} height={258} alt= {selectedMon}/></div>
         <InputMonName/>
     </div>

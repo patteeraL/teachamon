@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "@/styles/Login.module.css";
 import Head from "next/head";
+import Image from "next/image";
 import InputLogin from "@/components/input_login"; 
 
 export default function Index() {
@@ -21,19 +22,20 @@ export default function Index() {
         <meta name="keyword" content="" />
       </Head>
       <div className={styles.container}>
-        <h3>The Adventure of</h3>
-        <h1>TEACHAMON</h1>
-
         
+
+      <h5>The Adventure of</h5>
+      <h1>TEACHAMON</h1>
         {showLoginForm && <InputLogin formType={showLoginForm} />}
 
         
         {!showLoginForm && (
           <>
-            <button className="mainbtn" onClick={handleLoginClick}>
+          <Image src="otter.svg" width={246} height={246} alt="icon"/>
+            <button className={styles.loginbtn} onClick={handleLoginClick}>
               Log in
             </button>
-            <button className="mainbtn" onClick={handleSignUpClick}>
+            <button className={styles.signupbtn} onClick={handleSignUpClick}>
               Sign up
             </button>
           </>

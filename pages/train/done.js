@@ -59,20 +59,36 @@ export default function Done() {
   }, [monName, result]); // Depend on `monName` and `result`
 
   const skillStyle = {
-    fontFamily: "Inter",
-    color: subject === "Maths" ? "#E55F42" : "#6042E5",
+    marginTop: '20px',
+    fontSize: '13px',
+    color: subject === 'Maths' ? '#E55F42' : '#6042E5', 
   };
 
   const correctMessage = (
     <>
-      I think that’s correct! <br /> Thank you!!
+      <h6>{monName}: I see! I think I got it now. Thank you!</h6>
       <p style={skillStyle}>
         {subject === "Maths" ? "Attack +50 XP!" : "Defense +50 XP!"}
       </p>
+      <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/chat`}>
+              Next
+            </Link>
     </>
   );
 
-  const wrongMessage = <>I think that’s incorrect <br /> Sorry :(</>;
+  const wrong = (
+    <>
+      <h6>{monName}: Hmmm.... I don’t think that’s correct. Are you sure about your answer?</h6>
+      <div className={styles.retryLinks}>
+        <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/subject`}>
+          Try Again?
+        </Link>
+        <Link className={styles.mainbtn} style={{ marginTop: '20px' , background: '#4A3206', color: '#F6A714' }}href={`/train/chat`}>
+          Skip Question
+        </Link>
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -80,8 +96,8 @@ export default function Done() {
         <title>{subject} | Teachamon</title>
         <meta name="keyword" content="" />
       </Head>
-      <div className={styles.container}>
-        <div>
+      <div className={styles.trainbg}>
+        <div className= {styles.title}>
           <h5>TRAINING</h5>
           <h3>{subject}</h3>
         </div>
@@ -93,11 +109,13 @@ export default function Done() {
             <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon" />
           </div>
         </div>
-        <div>
-          <h2 className={styles.question}>{result ? correctMessage : wrongMessage}</h2>
-        </div>
-        <div>
-          <Link className={styles.mainbtn} href={`/train/chat`}>Next Question</Link>
+        <div className={styles.containerH}>
+          <div>
+            <h2 className={styles.done}>
+              {result === false ? wrong : correct}
+            </h2>
+          </div>
+        
         </div>
       </div>
     </>

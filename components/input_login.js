@@ -38,7 +38,7 @@ export default function InputLogin() {
   };
 
   return (
-    <div className={styles.container}>
+ 
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="text"
@@ -76,9 +76,9 @@ export default function InputLogin() {
           className={styles.mainbtn}
           disabled={loading}
         >
-          {loading ? "Loading..." : "Submit"}
+          {loading ? "Loading..." : "Log in"}
         </button>
       </form>
-    </div>
+
   );
 }

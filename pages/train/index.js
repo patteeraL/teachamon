@@ -58,12 +58,17 @@ export default function Index() {
           )}
         </div>
 
-        <div>
-          <Link className={styles.mainbtn} href={`/train/subject`}>
-            Start Training
-          </Link>
-        </div>
-      </div>
-    </>
-  );
+                <div>
+                    
+                <Link 
+                        className={`${styles.mainbtn} ${!subject ? styles.disabledBtn : ''}`} 
+                        style={{ marginTop: '30vh' }}  
+                        href={`/train/subject`}
+                    >
+                        Start Training
+                    </Link>
+                </div>
+            </div>
+        </>
+    );
 }
