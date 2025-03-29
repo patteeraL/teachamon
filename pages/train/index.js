@@ -28,12 +28,12 @@ export default function Index() {
           <h3>Choose a Subject</h3>
         
           <SubjectCard
-            className={`${styles.monbtn} ${subject === "Maths" ? styles.selected : ""}`}
+            className={`${styles.monbtn} ${subject === "Maths" ? styles.clicked : ""}`}
             onClick={() => handleCardClick("Maths")}
             subject="Maths"
           />
           <SubjectCard
-            className={`${styles.monbtn} ${subject === "Science" ? styles.selected : ""}`}
+            className={`${styles.monbtn} ${subject === "Science" ? styles.clicked : ""}`}
             onClick={() => handleCardClick("Science")}
             subject="Science"
           />

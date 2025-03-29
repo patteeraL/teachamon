@@ -21,7 +21,7 @@ export default function ScienceChat() {
         <title>Science | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={styles.container_qna}>
+      <div className={styles.container}>
         <div>
           <h5>TRAINING</h5>
           <h3>Science</h3>

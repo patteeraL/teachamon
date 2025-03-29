@@ -1,4 +1,4 @@
-import styles from "@/styles/Train.module.css"
+import styles from "@/styles/Train.module.css";
 import Choice from "@/components/choice";
 import Head from "next/head";
 import Link from "next/link";
@@ -7,35 +7,50 @@ import { useEffect, useState } from 'react';
 
 export default function Maths() {
   const [subject, setSubject] = useState('');
+  const [Monname, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState(''); 
+  const [selectedChoice, setSelectedChoice] = useState(null);
   const ans_choices = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
+
   const handleChoiceClick = (choice) => {
+    setSelectedChoice(choice); 
     console.log("Choice selected:", choice);
   };
+
   useEffect(() => {
-  
     const storedSubject = localStorage.getItem('subject');
+    const storedMonName = localStorage.getItem('Monname');
+    const storedMonId = localStorage.getItem('monId');
     if (storedSubject) {
       setSubject(storedSubject);
     }
+    if (storedMonName) {
+      setMonname(storedMonName);
+    }
+    if (storedMonId) {
+      setSelectedMon(storedMonId);
+  }
   }, []);
 
+
+      
   return (
     <>
       <Head>
-        <title>Maths | Teachamon</title>
+        <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={styles.container_qna}>
+      <div className={styles.container}>
         <div>
           <h5>TRAINING</h5>
-          <h3>Maths</h3>
+          <h3>{subject}</h3>
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
-            <h3>Nicks</h3>
+            <h3>{Monname}</h3>
           </div>
           <div>
-            <Image src="/mon1.svg" width={186} height={186} alt="mon"/>
+            <Image src={"/"+selectedMon+".svg"} width={186} height={186} alt="mon"/>
           </div>
         </div>
         <div>
@@ -47,8 +62,11 @@ export default function Maths() {
           </h2>
         </div>
         <div className={styles.row}>
-         
-          <Choice onClick={handleChoiceClick} choices={ans_choices} />
+          <Choice 
+            onClick={handleChoiceClick} 
+            choices={ans_choices} 
+            selectedChoice={selectedChoice}
+          />
         </div>
         <div>
           <Link className="mainbtn" type="submit" href={`/train/done`}>Submit</Link>

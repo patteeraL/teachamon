@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Done() {
- const [subject, setSubject] = useState('');
+ const [selectedSubject, setSubject] = useState('');
  useEffect(() => {
    
      const storedSubject = localStorage.getItem('subject');
@@ -15,7 +15,7 @@ export default function Done() {
    }, []);
   const skillStyle = {
     fontFamily: 'Inter',
-    color: subject === 'Maths' ? '#E55F42' : '#6042E5', 
+    color: selectedSubject === 'Maths' ? '#E55F42' : '#6042E5', 
   };
   const attackSkill = (<>
     Attack +50xp !
@@ -28,7 +28,7 @@ export default function Done() {
     <>
       I think that’s correct! <br /> Thank you!!
       <p style={skillStyle}>
-        {subject === "Maths" ? attackSkill : defenseSkill}
+        {selectedSubject === "Maths" ? attackSkill : defenseSkill}
       </p>
     </>
   );
@@ -40,13 +40,13 @@ export default function Done() {
   return (
     <>
       <Head>
-        <title>{subject} | Teachamon</title>
+        <title>{selectedSubject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
       <div className={styles.container}>
         <div>
           <h5>TRAINING</h5>
-          <h3>{subject}</h3>
+          <h3>{selectedSubject}</h3>
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
@@ -64,7 +64,7 @@ export default function Done() {
         </div>
     
         <div>
-          <Link className={styles.mainbtn} href={`/train/${subject === "Maths-chat" ? "Maths-chat" : "Science-chat"}`}>Next Question</Link>
+          <Link className={styles.mainbtn} href={`/train/${selectedSubject === "Maths" ? "Maths-chat" : "Science-chat"}`}>Next Question</Link>
         </div>
       </div>
     </>

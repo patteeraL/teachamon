@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 
 export default function Science() {
   const [subject, setSubject] = useState('');
+  const [Monname, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState('');
   const ans_choices = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
   const handleChoiceClick = (choice) => {
     console.log("Choice selected:", choice);
@@ -14,28 +16,36 @@ export default function Science() {
   useEffect(() => {
   
     const storedSubject = localStorage.getItem('subject');
+    const storedMonName = localStorage.getItem('Monname');
+    const storedMonId = localStorage.getItem('monId');
     if (storedSubject) {
-      setSubject(storedSubject);
+        setSubject(storedSubject);
+      }
+      if (storedMonName) {
+        setMonname(storedMonName);
+      }
+      if (storedMonId) {
+        setSelectedMon(storedMonId);
     }
   }, []);
 
   return (
     <>
       <Head>
-        <title>Science | Teachamon</title>
+        <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={styles.container_qna}>
+      <div className={styles.container}>
         <div>
           <h5>TRAINING</h5>
-          <h3>Science</h3>
+          <h3>{subject}</h3>
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
-            <h3>Nicks</h3>
+            <h3>{Monname}</h3>
           </div>
           <div>
-            <Image src="/mon1.svg" width={186} height={186} alt="mon"/>
+            <Image src={"/"+selectedMon+".svg"} width={186} height={186} alt="mon"/>
           </div>
         </div>
         <div>

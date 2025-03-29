@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import styles from "@/styles/Onboarding.module.css"
 import Head from "next/head";
 import Image from "next/image";
@@ -6,10 +6,20 @@ import Link from "next/link";
 
 export default function Index() {
   const [selectedMon, setSelectedMon] = useState("");
-  const handleImageClick = (monNo) => {
-    setSelectedMon(monNo); 
-    console.log("monNo:", monNo);
+
+  const handleImageClick = (monId) => {
+    setSelectedMon(monId); 
+    console.log("monId:", monId);
   };
+
+
+  useEffect(() => {
+    if (selectedMon) {
+      localStorage.setItem('monId', selectedMon); 
+    }
+  }, [selectedMon]);
+
+      
   return (
     <>
     <Head>
@@ -33,7 +43,7 @@ export default function Index() {
             <Image src="/mon2.svg" width={176} height={176} alt="mon2" />
           </div>
         </div>
-        <Link className="mainbtn" href={`/onboarding/${selectedMon === "mon1" ? "mon1" : "mon2"}`}>
+        <Link className="mainbtn" href={`/onboarding/mon`}>
           Select
         </Link>
     </div>

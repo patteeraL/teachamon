@@ -1,13 +1,13 @@
 import styles from "@/styles/Train.module.css";
 
-export default function Choice({ onClick, choices }) {
+export default function Choice({ onClick, choices, selectedChoice }) {
   return (
-    <div className={styles["choice-container"]}>
+    <div className={styles.choicecontainer}>
       {choices.map((choice, index) => (
         <div
           key={index}
-          className={styles["choice-button"]}
-          onClick={() => onClick(choice)}
+          className={`${styles.choicebutton} ${selectedChoice === choice ? styles.clicked : ''}`} 
+          onClick={() => onClick(choice)} 
         >
           {choice}
         </div>
