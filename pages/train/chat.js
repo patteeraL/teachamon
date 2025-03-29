@@ -1,57 +1,61 @@
 import styles from "@/styles/Train.module.css"
-import Choice from "@/components/choice";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import InputAns from "@/components/input_ans";
 import { useEffect, useState } from 'react';
 
-export default function Science() {
+export default function MathsChat() {
   const [subject, setSubject] = useState('');
-  const ans_choices = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
-  const handleChoiceClick = (choice) => {
-    console.log("Choice selected:", choice);
-  };
+  const [monName, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState(''); 
+
   useEffect(() => {
-  
     const storedSubject = localStorage.getItem('subject');
+    const storedMonName = localStorage.getItem('Monname');
+    const storedMonId = localStorage.getItem('monId');
     if (storedSubject) {
       setSubject(storedSubject);
+    }
+    if (storedMonName) {
+      setMonname(storedMonName);
+    }
+    if (storedMonId) {
+      setSelectedMon(storedMonId);
     }
   }, []);
 
   return (
     <>
       <Head>
-        <title>Science | Teachamon</title>
+        <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={styles.container_qna}>
+      <div className={styles.container}>
         <div>
           <h5>TRAINING</h5>
-          <h3>Science</h3>
+          <h3>{subject}</h3>
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
-            <h3>Nicks</h3>
+            <h3>{monName}</h3>
           </div>
           <div>
-            <Image src="/mon1.svg" width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
-        <div>
-          <h2 className={styles.question}>Teach me!</h2>
-        </div>
+    
         <div>
           <h2 className={styles.question}>
-            How do I convert a decimal number into binary?
+          Can you clarify this?
+          Say it in ur own words!
           </h2>
         </div>
         <div className={styles.row}>
-         
-          <Choice onClick={handleChoiceClick} choices={ans_choices} />
+         <InputAns/>
         </div>
         <div>
-          <Link className="mainbtn" type="submit" href={`/train/done`}>Submit</Link>
+          <Link className={styles.mainbtn} type="submit" href={`/train/success`}>Submit</Link>
         </div>
       </div>
     </>

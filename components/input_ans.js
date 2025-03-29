@@ -19,7 +19,7 @@ export default function InputAns() {
         name="answer"
         className={styles.input_ans}
         value={answer}
-        onChange={(e) => setUsername(e.target.value)}  
+        onChange={(e) => setanswer(e.target.value)}  
         placeholder="Explanation Here"
       />
     </form>

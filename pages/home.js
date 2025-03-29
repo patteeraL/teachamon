@@ -1,11 +1,25 @@
 import styles from "@/styles/Home.module.css";
+import { useEffect, useState } from 'react';
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Index() {
-  const [isPanelOpen, setPanelOpen] = useState(false);
+  const [Monname, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState(''); 
+      useEffect(() => {
+        
+          const storedMonName = localStorage.getItem('Monname');
+          const storedMonId = localStorage.getItem('monId');
+          if (storedMonName) {
+            setMonname(storedMonName);
+          }
+          if (storedMonId) {
+            setSelectedMon(storedMonId);
+        }
+        }, []);
+
   const attackPercentage = 90;
   const defensePercentage = 90;
 
@@ -30,10 +44,10 @@ export default function Index() {
         </div>
         <div className={styles.bg}>
           <div className={styles.monname}>
-            <h3>Nicks</h3>
+            <h3>{Monname}</h3>
           </div>
           <div className={styles.mon}>
-            <Image src="/mon1.svg" width={224} height={224} alt="mon1" />
+            <Image src= {selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"} width={224} height={224} alt="mon" />
           </div>
 
           <div className={styles.statusbar}>
