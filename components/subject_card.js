@@ -13,16 +13,19 @@ export default function SubjectCard({ onClick, subject, selected, characterName 
 
   useEffect(() => {
     async function fetchXP() {
+      if (!characterName) return; // Ensure characterName exists before querying
+
+      const column = subject === "Maths" ? "xp_math" : "xp_sci";
       const { data, error } = await supabase
         .from("characters")
-        .select(subject === "Maths" ? "xp_math" : "xp_sci")
+        .select(column)
         .eq("name", characterName)
         .single();
 
       if (error) {
         console.error("Error fetching XP:", error);
       } else {
-        setXp(subject === "Maths" ? data.xp_math : data.xp_sci);
+        setXp(data[column] || 0); // Ensure xp is set even if null
       }
     }
 
@@ -38,12 +41,6 @@ export default function SubjectCard({ onClick, subject, selected, characterName 
   const title = subject === "Maths" ? styles.attacktitle : styles.defensetitle;
   const type_title = subject === "Maths" ? "Increases Attack XP" : "Increases Defense XP";
 
-  const attackPercentage = 90;
-  const defensePercentage = 90;
-
-  const percentage = subject === "Maths" ? attackPercentage : defensePercentage;
-
-
   return (
     <div
       className={`${trainStyles.card} ${selected ? trainStyles.clicked : ""}`}
@@ -52,16 +49,12 @@ export default function SubjectCard({ onClick, subject, selected, characterName 
       <div className={trainStyles.subject}>{subject}</div>
       <div className={skill}>
         <h4 className={title}>{type_title}</h4>
-        
       </div>
       <div className={type}>
-        <div
-          className={bar}
-          style={{ width: `${percentage}%` }}
-        ></div>
+        <div className={bar} style={{ width: `${percentage}%` }}></div>
         <div className={skill}>
-        <h5>Current XP</h5>
-        <h4 className={trainStyles.percentage}>{percentage * 5}/500</h4>
+          <h5>Current XP</h5>
+          <h4 className={trainStyles.percentage}>{xp}/500</h4>
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { supabase } from '@/lib/supabase';
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -19,8 +18,9 @@ export default function Index() {
   const [userRank, setUserRank] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const attackPercentage = 90;
-  const defensePercentage = 90;
+  // Initialize percentages as 0 or default values
+  const [attackPercentage, setAttackPercentage] = useState(0);
+  const [defensePercentage, setDefensePercentage] = useState(0);
 
   useEffect(() => {
     // Load character selection from localStorage
@@ -29,7 +29,7 @@ export default function Index() {
     if (storedMonName) setMonname(storedMonName);
     if (storedMonId) setSelectedMon(storedMonId);
 
-    // Fetch leaderboard data from view table
+    // Fetch leaderboard data from view tablen 
     const fetchLeaderboardData = async () => {
       try {
         // Fetch top players from the view
@@ -65,8 +65,35 @@ export default function Index() {
       }
     };
 
+    // Fetch monster data (xp_math, xp_sci) for the selected monster
+    const fetchMonsterData = async () => {
+      if (!selectedMon) return;  // Ensure selectedMon is set before fetching
+
+      const { data, error } = await supabase
+        .from("monsters")
+        .select("xp_math, xp_sci")
+        .eq("id", selectedMon);  // Assuming "id" is used to identify the selected monster
+
+      if (error) {
+        console.error("Error fetching monster data:", error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        const monster = data[0];
+        // Divide xp_math and xp_sci by 500 and set percentages
+        const attackPercentage = Math.min((monster.xp_math / 500) * 100, 100); // Cap at 100%
+        const defensePercentage = Math.min((monster.xp_sci / 500) * 100, 100); // Cap at 100%
+
+        setAttackPercentage(attackPercentage);
+        setDefensePercentage(defensePercentage);
+      }
+    };
+
     fetchLeaderboardData();
-  }, []);
+    fetchMonsterData(); // Fetch monster data after leaderboard is fetched
+
+  }, [selectedMon]);  // Fetch data again if selectedMon changes
 
   return (
     <>
@@ -78,9 +105,9 @@ export default function Index() {
         <div className={styles.nav}>
           <div className={styles.title}>
             <h5>The Adventure of</h5>
-          <h2>TEACHAMON</h2>
+            <h2>TEACHAMON</h2>
           </div>
-          
+
           <div className={styles.ranking}>
             <h4>Rankings</h4>
             {loading ? (
@@ -94,11 +121,10 @@ export default function Index() {
                     </li>
                   ))}
                 </ol>
-                
               </>
             )}
           </div>
-  
+
         </div>
         <div className={styles.bg}>
           <div className={styles.monname}>
@@ -114,78 +140,78 @@ export default function Index() {
             />
           </div>
           {userRank ? (
-                  <h4 className={styles.yourRank}>
-                    You | {userRank.wins} wins
-                  </h4>
-                ) : (
-                  <h4 className={styles.yourRank}>Unranked | 0 wins</h4>
-                )}
+            <h4 className={styles.yourRank}>
+              You | {userRank.wins} wins
+            </h4>
+          ) : (
+            <h4 className={styles.yourRank}>Unranked | 0 wins</h4>
+          )}
           <div className={styles.statusbg}>
-          <div className={styles.statusbar}>
-            <div className={styles.stage}>
-              <h5>Stage 1</h5>
-              <h5>Lvl.1</h5>
-            </div>
+            <div className={styles.statusbar}>
+              <div className={styles.stage}>
+                <h5>Stage 1</h5>
+                <h5>Lvl.1</h5>
+              </div>
 
-            <div className={styles.attackSkill}>
-              <h5 className={styles.attacktitle}>Attack</h5>
-              <h5 className={styles.percentage}>{attackPercentage * 5}/500</h5>
-            </div>
-            <div className={styles.attack}>
-              <div
-                className={styles.attackBar}
-                style={{ width: `${attackPercentage}%` }}
-              ></div>
-            </div>
+              <div className={styles.attackSkill}>
+                <h5 className={styles.attacktitle}>Attack</h5>
+                <h5 className={styles.percentage}>{attackPercentage * 5}/500</h5>
+              </div>
+              <div className={styles.attack}>
+                <div
+                  className={styles.attackBar}
+                  style={{ width: `${attackPercentage}%` }}
+                ></div>
+              </div>
 
-            <div className={styles.defenseSkill}>
-              <h5 className={styles.defensetitle}>Defense</h5>
-              <h5 className={styles.percentage}>{defensePercentage * 5}/500</h5>
-            </div>
-            <div className={styles.defense}>
-              <div
-                className={styles.defenseBar}
-                style={{ width: `${defensePercentage}%` }}
-              ></div>
-            </div>
-          </div>
-
-          <div className={styles.btngroup}>
-            <Link href="/train" legacyBehavior>
-              <a className={styles.trainbtn}>Train</a>
-            </Link>
-            <button className={styles.bttbtn} onClick={() => setPanelOpen(true)}>
-              Battle
-            </button>
-          </div>
-
-          {isPanelOpen && (
-            <div className={styles.darkpanel}>
-              <div className={styles.battleMenu}>
-                <h2 className={styles.battleTopic}>Battle</h2>
-                <div>
-                  <Link href="/battle" legacyBehavior>
-                    <a className={styles.mainbtn}>Create Room</a>
-                  </Link>
-                  <p>or</p>
-                  <input 
-                    type="text" 
-                    placeholder="Enter Code" 
-                    className={styles.inputField}
-                  />
-                  <Link href="/battle" legacyBehavior>
-                    <a className={styles.mainbtn2}>Join Room</a> 
-                  </Link>
-                </div>
-                <button 
-                  className={styles.closebtn} 
-                  onClick={() => setPanelOpen(false)}
-                >
-                  &times;
-                </button>
+              <div className={styles.defenseSkill}>
+                <h5 className={styles.defensetitle}>Defense</h5>
+                <h5 className={styles.percentage}>{defensePercentage * 5}/500</h5>
+              </div>
+              <div className={styles.defense}>
+                <div
+                  className={styles.defenseBar}
+                  style={{ width: `${defensePercentage}%` }}
+                ></div>
               </div>
             </div>
-          )}
+
+            <div className={styles.btngroup}>
+              <Link href="/train" legacyBehavior>
+                <a className={styles.trainbtn}>Train</a>
+              </Link>
+              <button className={styles.bttbtn} onClick={() => setPanelOpen(true)}>
+                Battle
+              </button>
+            </div>
+
+            {isPanelOpen && (
+              <div className={styles.darkpanel}>
+                <div className={styles.battleMenu}>
+                  <h2 className={styles.battleTopic}>Battle</h2>
+                  <div>
+                    <Link href="/battle" legacyBehavior>
+                      <a className={styles.mainbtn}>Create Room</a>
+                    </Link>
+                    <p>or</p>
+                    <input 
+                      type="text" 
+                      placeholder="Enter Code" 
+                      className={styles.inputField}
+                    />
+                    <Link href="/battle" legacyBehavior>
+                      <a className={styles.mainbtn2}>Join Room</a> 
+                    </Link>
+                  </div>
+                  <button 
+                    className={styles.closebtn} 
+                    onClick={() => setPanelOpen(false)}
+                  >
+                    &times;
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -16,12 +16,16 @@ export default function Index() {
 
   useEffect(() => {
     async function fetchSubjects() {
-      const { data, error } = await supabase.from("subjects").select("name");
+      const { data, error } = await supabase
+        .from("monsters")  // Use "monsters" table
+        .select("name")    // Fetch names of the monsters (subjects)
+        .neq("xp_math", null) // Ensure xp_math is not null (or use any other condition)
+        .neq("xp_sci", null); // Ensure xp_sci is not null (if that's required)
 
       if (error) {
         console.error("Error fetching subjects:", error);
       } else {
-        setSubjects(data.map((s) => s.name)); // Extract subject names
+        setSubjects(data.map((s) => s.name)); // Extract subject names (monster names)
       }
     }
 
@@ -58,17 +62,16 @@ export default function Index() {
           )}
         </div>
 
-                <div>
-                    
-                <Link 
-                        className={`${styles.mainbtn} ${!subject ? styles.disabledBtn : ''}`} 
-                        style={{ marginTop: '30vh' }}  
-                        href={`/train/subject`}
-                    >
-                        Start Training
-                    </Link>
-                </div>
-            </div>
-        </>
-    );
+        <div>
+          <Link 
+            className={`${styles.mainbtn} ${!subject ? styles.disabledBtn : ''}`} 
+            style={{ marginTop: '30vh' }}  
+            href={`/train/subject`}
+          >
+            Start Training
+          </Link>
+        </div>
+      </div>
+    </>
+  );
 }
