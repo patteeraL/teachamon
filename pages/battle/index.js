@@ -20,7 +20,7 @@ export default function Index() {
   const router = useRouter();
   const [selectedMon, setSelectedMon] = useState("");
   const [monName, setMonname] = useState("");
-  const [oppMonId, setOppMonId] = useState("mon2");
+  const [oppMonId, setOppMonId] = useState("mon1");
   const [oppMonName, setOppMonName] = useState("Trainer");
   const [showOpponent, setShowOpponent] = useState(false);
 
@@ -51,7 +51,7 @@ export default function Index() {
 
   const handleBattleStart = () => {
     if (showOpponent) {
-      router.push("/battle/battleground");
+      router.push("battle/battleroom");
     }
   };
 
@@ -63,15 +63,22 @@ export default function Index() {
       </Head>
       <div className={styles.container_wait}>
         {/* Headline */}
+        <div className={styles.title}>
         <div className={styles.headline}>
           <h3>Battle</h3>
           <h1>Waiting Room</h1>
         </div>
+        </div>
 
         {/* Battle Code */}
+        <div className={styles.title} style={{marginTop: "50px"}}>
         <div className={styles.battlecode}>
-          <h3>Battle Code</h3>
-          <h1>XXXXXX</h1>
+
+        {showOpponent && <h1>Ready!</h1>}
+        {!showOpponent && (<><h3>Battle Code</h3>
+          <h1>XXXXXX</h1></>)}
+
+        </div>
         </div>
 
         {/* Sprites Row */}
@@ -84,6 +91,7 @@ export default function Index() {
               height={224}
               className={styles.sprite1}
               alt={selectedMon}
+              style={{transform: "scale(-1, 1)"}}
             />
           </div>
           <div className={styles.spritebox}>

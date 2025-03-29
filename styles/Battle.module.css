@@ -1,5 +1,5 @@
 .container_wait {
-    background-image: url("/waitingRoom.svg");
+    background-image: url("/forest.svg");
     background-size: cover;
     width: 402px;
     height: 100vh;
@@ -9,10 +9,31 @@
     padding: 2rem;
   }
   
-.headline {
-    padding-top: 15%;
-    width: 100%;
-    text-align: left; /* Align text to the left */
+  .battlebg{
+    background-image: url("/battle.svg");
+    width: 402px;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    padding: 50px 20px 0 20px;
+}
+
+  .containerH{
+    background: #F3E4CA;
+    width: 402px;
+    height: 500px;
+    margin-left: -20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 0 20px;}
+    
+
+.headline{
+    width: 334px;
 }
 
 .headline h1{
@@ -24,11 +45,7 @@
     opacity: 30%;
 }
 
-.battlecode {
-    padding-top: 25%;
-    font-size: 0.875rem; /* Shrink text size */
-    margin: 1rem 0;
-}
+
 
 .battlecode h1{
     font-size: 20px;
@@ -43,7 +60,7 @@
 .spritesrow {
     padding-top: 25%;
     display: flex;
-    justify-content: space-between; /* Align sprites horizontally with space between */
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -56,7 +73,7 @@
 }
 .monName {
     font-size: 1rem;
-    margin-bottom: 0.5rem; /* Space between name and sprite */
+    margin-bottom: 0.5rem; 
     background-color: #e8e8e8;
     display: inline-block;
     padding: 4px 8px;
@@ -100,8 +117,8 @@
 
 .cancelButton {
     padding: 10px 10px;
-    background-color: #FF5050;
-    color: #000000;
+    background-color: #4A3206;
+    color: #F6A714;
     border-radius: 5px;
     text-decoration: none;
     display: inline-block;
@@ -113,7 +130,7 @@
 }
 
 .cancelButton:hover {
-    background-color: red;
+    background-color: #3b2805;
 }
 
 .btnsets {
@@ -128,3 +145,198 @@
 
 }
   
+.title{
+    background:#FDFBF7;
+    border: 2px solid black;
+    border-radius: 12px;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px
+}
+
+.progressContainer {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20px; 
+  }
+  
+  .progressBar {
+    height: 100%;
+    background-color: #E55F42;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+  
+  
+ 
+  .battlegnd {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center; 
+    margin-top: 20px; 
+  }
+  
+  .player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .attackbutton {
+    width: 165px;
+    height: 48px;
+    background: #FF5050;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px 0;
+    font-size: 22px;
+    border-radius: 12px;
+    border: 2px solid #bd3b3b;
+    transition: background-color 0.3s ease;
+  }
+  .stancebutton {
+    width: 165px;
+    height: 48px;
+    background: #FFED4C;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px 0;
+    font-size: 22px;
+    border-radius: 12px;
+    border: 2px solid #d5c63d;
+    transition: background-color 0.3s ease;
+  }
+  .chargebutton {
+    width: 165px;
+    height: 48px;
+    background: #42A8DF;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px 0;
+    font-size: 22px;
+    border-radius: 12px;
+    border: 2px solid #3284b0;
+    transition: background-color 0.3s ease;
+  }
+  .abortbutton {
+    width: 165px;
+    height: 48px;
+    background: #D4D4D4;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px 0;
+    font-size: 22px;
+    border-radius: 12px;
+    border: 2px solid #aeabab;
+    transition: background-color 0.3s ease;
+  }
+  .actionbtn{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+  }
+
+
+.disabledbtn {
+    background-color: #ccc;
+    color: #666;
+    border: 2px solid #999;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .disabledbtn:hover {
+    background-color: #ccc;
+  }
+  
+  .darkpanel {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5); /* Darken background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .popup {
+    background-color: #F3E4CA;
+    padding:  70px 30px;
+    border-radius: 10px;
+    width: 318px;
+    height: 600px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
+  
+
+  
+  .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .closebtn:hover {
+    color: red;
+  }
+  
+  .mainbtn {
+    padding: 10px 10px;
+    background-color: #F6A714;
+    color: #4A3206;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .mainbtn2 {
+      padding: 10px 10px;
+      color: #F6A714;
+      background-color: #4A3206;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+      max-width: 250px;
+      text-align: center;
+      cursor: pointer;
+    }
