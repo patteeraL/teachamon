@@ -3,6 +3,7 @@ import styles from "@/styles/Onboarding.module.css"
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+
 export default function Index() {
   const [selectedMon, setSelectedMon] = useState("");
   const handleImageClick = (monNo) => {

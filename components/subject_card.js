@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import trainStyles from "@/styles/Train.module.css";
 
-export default function SubjectCard({ subject }) {
+export default function SubjectCard({ onClick, subject }) {
   
     const skill = subject === "Maths" ? styles.attackSkill : styles.defenseSkill;
   const bar = subject === "Maths" ? styles.attackBar : styles.defenseBar;
@@ -18,9 +18,9 @@ export default function SubjectCard({ subject }) {
 
 
   return (
-    <div className={trainStyles.card}>
+    <div className={trainStyles.card} onClick={onClick}>
         <div className={trainStyles.subject}>{subject}</div>
-      <div className={skill}>
+        <div className={skill}>
               <h4 className={title}>{type_title}</h4>
               <h4 className={percentage}>{percentage*5}/500</h4>
             </div>

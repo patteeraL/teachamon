@@ -6,7 +6,18 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: start;
-    padding: 10vh 20px;
+    padding: 50px 20px 0 20px;
+}
+
+.container_qna{
+    background: white;
+    width: 402px;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 50px 20px 0 20px;
 }
 
 .container h5{
@@ -29,3 +40,87 @@
     color: black;
     font-size: 24px;
 }
+
+.selected {
+    background-color: #b09d76;  
+    border: 5px solid black;
+  }
+
+  .card:hover {
+    background: #9b9999;
+}
+.monname{
+    background: #E8E8E8;
+    padding: 5px;
+    margin-top: 2vh;
+}
+
+.mainbtn {
+    font-family: 'Inter';
+    width: 365px;
+    height: 49px;
+    background: #B0B0B0;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 12px;
+   
+  }
+
+  .row {
+    width: 365px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .question{
+    font-family: "Inter";
+  }
+
+
+.choice-button {
+    font-family: 'Inter';
+    width: 365px;
+    height: 49px;
+    background: #F1F1F1;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px 0;
+    font-size: 24px;
+    border-radius: 12px;
+    border: 2px solid black;
+  }
+
+  .choice-button:hover{
+    background: #a8a7a7;
+  }
+  
+  .choice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .input_ans{
+    height: 208px;
+    width: 365px;
+    background: #ECE6E6;
+    color: black;
+    border-radius: 12px;
+    border: 2px solid black;
+    padding: 10px;
+    font-family: "Inter";
+    font-size: 24px;
+    margin: 5vh 0;
+  }
