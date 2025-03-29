@@ -82,10 +82,8 @@ export default function MathsChat() {
           <div className={styles.feedbackDetails}>
             <p>Score: {score}</p>
             <p>Answer Status: {answerStatus}</p>
-            <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/chat`}>
-          Try Again?
-        </Link>
-        <Link className={styles.mainbtn} style={{ marginTop: '20px' }} href={`/train/success`}>
+    
+        <Link className={styles.mainbtn} style={{ marginTop: '70px' }} href={`/train/success`}>
               Next
             </Link>
           </div>
