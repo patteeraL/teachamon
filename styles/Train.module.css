@@ -149,3 +149,11 @@
     width: 374px;
     padding: 10px
 }
+
+.textarea {
+    background: #FDFBF7;
+    height: 217px;
+    border-radius: 12px;
+    padding: 10px;
+    border: 2px solid gray;
+}

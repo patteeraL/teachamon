@@ -92,11 +92,11 @@ export default function MathsChat() {
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Type your answer here..."
-                className={styles.input}
+                className={styles.textarea}
               />
             </div>
             <div>
-              <button className={styles.mainbtn} onClick={handleSubmit}>
+              <button className={styles.mainbtn} style={{marginTop:"50px"}} onClick={handleSubmit}>
                 Submit
               </button>
             </div>
