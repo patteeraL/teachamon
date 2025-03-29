@@ -17,15 +17,18 @@ export default function InputLogin() {
     setError("");
 
     try {
-      const { data, error: supabaseError } = await supabase
-        .from('users')
-        .select('*')
-        .eq('username', username)
-        .eq('password', password)
-        .single();
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-      if (supabaseError || !data) {
-        throw new Error('Username or password incorrect');
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
       }
 
       localStorage.setItem('currentUser', JSON.stringify(data));
@@ -36,7 +39,6 @@ export default function InputLogin() {
       setLoading(false);
     }
   };
-
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
