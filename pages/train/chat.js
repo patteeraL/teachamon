@@ -1,21 +1,14 @@
-import styles from "@/styles/Train.module.css";
-import Choice from "@/components/choice";
+import styles from "@/styles/Train.module.css"
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import InputAns from "@/components/input_ans";
 import { useEffect, useState } from 'react';
 
-export default function Maths() {
+export default function MathsChat() {
   const [subject, setSubject] = useState('');
-  const [Monname, setMonname] = useState(""); 
+  const [monName, setMonname] = useState(""); 
   const [selectedMon, setSelectedMon] = useState(''); 
-  const [selectedChoice, setSelectedChoice] = useState(null);
-  const ans_choices = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
-
-  const handleChoiceClick = (choice) => {
-    setSelectedChoice(choice); 
-    console.log("Choice selected:", choice);
-  };
 
   useEffect(() => {
     const storedSubject = localStorage.getItem('subject');
@@ -29,11 +22,9 @@ export default function Maths() {
     }
     if (storedMonId) {
       setSelectedMon(storedMonId);
-  }
+    }
   }, []);
 
-
-      
   return (
     <>
       <Head>
@@ -47,29 +38,24 @@ export default function Maths() {
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
-            <h3>{Monname}</h3>
+            <h3>{monName}</h3>
           </div>
           <div>
-            <Image src={"/"+selectedMon+".svg"} width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
-        <div>
-          <h2 className={styles.question}>Teach me!</h2>
-        </div>
+    
         <div>
           <h2 className={styles.question}>
-            How do I convert a decimal number into binary?
+          Can you clarify this?
+          Say it in ur own words!
           </h2>
         </div>
         <div className={styles.row}>
-          <Choice 
-            onClick={handleChoiceClick} 
-            choices={ans_choices} 
-            selectedChoice={selectedChoice}
-          />
+         <InputAns/>
         </div>
         <div>
-          <Link className="mainbtn" type="submit" href={`/train/done`}>Submit</Link>
+          <Link className={styles.mainbtn} type="submit" href={`/train/success`}>Submit</Link>
         </div>
       </div>
     </>

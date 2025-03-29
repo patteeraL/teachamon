@@ -5,17 +5,27 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Done() {
- const [selectedSubject, setSubject] = useState('');
- useEffect(() => {
-   
-     const storedSubject = localStorage.getItem('subject');
-     if (storedSubject) {
-       setSubject(storedSubject);
-     }
-   }, []);
+  const [subject, setSubject] = useState('');
+  const [monName, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState(''); 
+
+  useEffect(() => {
+    const storedSubject = localStorage.getItem('subject');
+    const storedMonName = localStorage.getItem('Monname');
+    const storedMonId = localStorage.getItem('monId');
+    if (storedSubject) {
+      setSubject(storedSubject);
+    }
+    if (storedMonName) {
+      setMonname(storedMonName);
+    }
+    if (storedMonId) {
+      setSelectedMon(storedMonId);
+    }
+  }, []);
   const skillStyle = {
     fontFamily: 'Inter',
-    color: selectedSubject === 'Maths' ? '#E55F42' : '#6042E5', 
+    color: subject === 'Maths' ? '#E55F42' : '#6042E5', 
   };
   const attackSkill = (<>
     Attack +50xp !
@@ -28,7 +38,7 @@ export default function Done() {
     <>
       I think that’s correct! <br /> Thank you!!
       <p style={skillStyle}>
-        {selectedSubject === "Maths" ? attackSkill : defenseSkill}
+        {subject === "Maths" ? attackSkill : defenseSkill}
       </p>
     </>
   );
@@ -40,20 +50,20 @@ export default function Done() {
   return (
     <>
       <Head>
-        <title>{selectedSubject} | Teachamon</title>
+        <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
       <div className={styles.container}>
         <div>
           <h5>TRAINING</h5>
-          <h3>{selectedSubject}</h3>
+          <h3>{subject}</h3>
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
-            <h3>Nicks</h3>
+            <h3>{monName}</h3>
           </div>
           <div>
-            <Image src="/mon1.svg" width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
         <div>
@@ -64,7 +74,7 @@ export default function Done() {
         </div>
     
         <div>
-          <Link className={styles.mainbtn} href={`/train/${selectedSubject === "Maths" ? "Maths-chat" : "Science-chat"}`}>Next Question</Link>
+          <Link className={styles.mainbtn} href={`/train/chat`}>Next Question</Link>
         </div>
       </div>
     </>

@@ -6,48 +6,54 @@ import Link from "next/link";
 
 export default function Index() {
     const [subject, setSubject] = useState('');
-    const handleCardClick = (subject) => {
-        setSubject(subject); 
-        console.log("subject:", subject);
+
+   
+    const handleCardClick = (selectedSubject) => {
+        setSubject(selectedSubject); 
+        console.log("subject:", selectedSubject);
     };
+
+
     useEffect(() => {
-    
-        localStorage.setItem('subject', subject);
-      }, [subject]);
-    
+        if (subject) {
+            localStorage.setItem('subject', subject);
+        }
+    }, [subject]);
 
-  return (
-    <>
-      <Head>
-        <title>Train | Teachamon</title>
-        <meta name="keyword" content=""/>
-      </Head>
-      <div className={styles.container}>
-        <div>
-          <h5>TRAINING</h5>
-          <h3>Choose a Subject</h3>
-        
-          <SubjectCard
-            className={`${styles.monbtn} ${subject === "Maths" ? styles.clicked : ""}`}
-            onClick={() => handleCardClick("Maths")}
-            subject="Maths"
-          />
-          <SubjectCard
-            className={`${styles.monbtn} ${subject === "Science" ? styles.clicked : ""}`}
-            onClick={() => handleCardClick("Science")}
-            subject="Science"
-          />
-        </div>
+    return (
+        <>
+            <Head>
+                <title>Train | Teachamon</title>
+                <meta name="keyword" content=""/>
+            </Head>
+            <div className={styles.container}>
+                <div>
+                    <h5>TRAINING</h5>
+                    <h3>Choose a Subject</h3>
+                
+                    
+                    <SubjectCard
+                        selected={subject === "Maths"} 
+                        onClick={() => handleCardClick("Maths")}
+                        subject="Maths"
+                    />
+                    <SubjectCard
+                        selected={subject === "Science"}
+                        onClick={() => handleCardClick("Science")}
+                        subject="Science"
+                    />
+                </div>
 
-        <div>
-          <Link 
-            className={styles.mainbtn} 
-            href={`/train/${subject === "Maths" ? "Maths" : "Science"}`}
-          >
-            Start Training
-          </Link>
-        </div>
-      </div>
-    </>
-  );
+                <div>
+                    
+                    <Link 
+                        className={styles.mainbtn} 
+                        href={`/train/subject`}
+                    >
+                        Start Training
+                    </Link>
+                </div>
+            </div>
+        </>
+    );
 }

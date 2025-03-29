@@ -26,6 +26,8 @@
     transition: background-color 0.3s ease; 
 }
 
+
+
 .subject{
     font-family: "Inter";
     color: black;
@@ -61,7 +63,6 @@
     cursor: pointer;
     font-size: 24px;
     border-radius: 12px;
-   
   }
 
   .row {
@@ -98,6 +99,7 @@
   .choicebutton:hover{
     background: #a8a7a7;
   }
+
   
   .choicecontainer {
     display: flex;

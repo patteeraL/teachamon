@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import styles from "@/styles/Home.module.css";
 import trainStyles from "@/styles/Train.module.css";
 
-export default function SubjectCard({ onClick, subject }) {
-  const [isClicked, setIsClicked] = useState(false); 
+export default function SubjectCard({ onClick, subject, selected }) {
 
   const skill = subject === "Maths" ? styles.attackSkill : styles.defenseSkill;
   const bar = subject === "Maths" ? styles.attackBar : styles.defenseBar;
@@ -16,16 +14,12 @@ export default function SubjectCard({ onClick, subject }) {
 
   const percentage = subject === "Maths" ? attackPercentage : defensePercentage;
 
-  const handleCardClick = () => {
-    setIsClicked(!isClicked); 
-    if (onClick) onClick(); 
-  };
 
   return (
     <div
-      className={`${trainStyles.card} ${isClicked ? trainStyles.clicked : ''}`} 
-      onClick={handleCardClick}
-    >
+    className={`${trainStyles.card} ${selected ? trainStyles.clicked : ''}`} 
+    onClick={onClick}
+  >
       <div className={trainStyles.subject}>{subject}</div>
       <div className={skill}>
         <h4 className={title}>{type_title}</h4>

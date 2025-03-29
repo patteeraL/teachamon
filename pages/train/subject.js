@@ -1,31 +1,33 @@
-import styles from "@/styles/Train.module.css"
+import styles from "@/styles/Train.module.css";
 import Choice from "@/components/choice";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from 'react';
 
-export default function Science() {
+export default function Subject() {
   const [subject, setSubject] = useState('');
-  const [Monname, setMonname] = useState(""); 
-  const [selectedMon, setSelectedMon] = useState('');
-  const ans_choices = ["Choice 1", "Choice 2", "Choice 3", "Choice 4"];
+  const [monName, setMonname] = useState(""); 
+  const [selectedMon, setSelectedMon] = useState(''); 
+  const [selectedChoice, setSelectedChoice] = useState(null); 
+
   const handleChoiceClick = (choice) => {
-    console.log("Choice selected:", choice);
+    setSelectedChoice(choice);
+    console.log("subject:", choice); 
   };
+
   useEffect(() => {
-  
     const storedSubject = localStorage.getItem('subject');
     const storedMonName = localStorage.getItem('Monname');
     const storedMonId = localStorage.getItem('monId');
     if (storedSubject) {
-        setSubject(storedSubject);
-      }
-      if (storedMonName) {
-        setMonname(storedMonName);
-      }
-      if (storedMonId) {
-        setSelectedMon(storedMonId);
+      setSubject(storedSubject);
+    }
+    if (storedMonName) {
+      setMonname(storedMonName);
+    }
+    if (storedMonId) {
+      setSelectedMon(storedMonId);
     }
   }, []);
 
@@ -42,10 +44,10 @@ export default function Science() {
         </div>
         <div className={styles.row}>
           <div className={styles.monname}>
-            <h3>{Monname}</h3>
+            <h3>{monName}</h3>
           </div>
           <div>
-            <Image src={"/"+selectedMon+".svg"} width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
         <div>
@@ -56,10 +58,26 @@ export default function Science() {
             How do I convert a decimal number into binary?
           </h2>
         </div>
-        <div className={styles.row}>
-         
-          <Choice onClick={handleChoiceClick} choices={ans_choices} />
-        </div>
+        <Choice 
+          onClick={handleChoiceClick} 
+          selectedChoice={selectedChoice} 
+          choice="Choice 1" 
+        />
+        <Choice 
+          onClick={handleChoiceClick} 
+          selectedChoice={selectedChoice} 
+          choice="Choice 2" 
+        />
+        <Choice 
+          onClick={handleChoiceClick} 
+          selectedChoice={selectedChoice} 
+          choice="Choice 3" 
+        />
+        <Choice 
+          onClick={handleChoiceClick} 
+          selectedChoice={selectedChoice} 
+          choice="Choice 4" 
+        />
         <div>
           <Link className="mainbtn" type="submit" href={`/train/done`}>Submit</Link>
         </div>
@@ -67,3 +85,5 @@ export default function Science() {
     </>
   );
 }
+
+
