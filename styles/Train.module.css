@@ -4,6 +4,28 @@
     height: 100vh;
     display:flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: start;
+    padding: 10vh 20px;
+}
+
+.container h5{
+    opacity: 30%;
+}
+
+.card {
+    width: 365px;
+    height: 110px;
+    border-radius: 12px;
+    background: #F1F1F1;
+    border: 2px solid black;
+    padding: 10px;
+    font-family: "Inter";
+    margin-top: 20px;
+}
+
+.subject{
+    font-family: "Inter";
+    color: black;
+    font-size: 24px;
 }

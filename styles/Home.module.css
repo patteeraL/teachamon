@@ -67,23 +67,23 @@
     width: 100%;
     height: 20px;
     background-color: #e0e0e0;
-    margin: 5px 0;
     border-radius: 10px;
   }
   
   .attackBar {
     height: 100%;
-    background-color: #ff5722; 
+    background-color: #E55F42; 
     border-radius: 10px;
   }
   
   .defenseBar {
     height: 100%;
-    background-color: #3f51b5;
+    background-color: #6042E5;
     border-radius: 10px;
   }
   
   .stage {
+    font-family: "Inter";
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -91,17 +91,20 @@
     font-weight: 700;
   }
   .attacktitle {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 10px;
+    font-family: "Inter";
     color: #ff5722;
   }
-  .defensetitle {
+
+  .attackSkill, .defenseSkill{
+    font-family: "Inter";
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 10px 0;
+
+  }
+
+  .defensetitle {
+    font-family: "Inter";
     color: #3f51b5;
   }
   
@@ -114,3 +117,7 @@
     font-weight: 900;
     font-family: "Inter";
   }
+
+.percentage{
+    color: black;
+}

@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function Index() {
   
-  const attackPercentage = 80;
-  const defensePercentage = 60; 
+  const attackPercentage = 90;
+  const defensePercentage = 90; 
 
   return (
     <>
@@ -36,13 +36,13 @@ export default function Index() {
           </div>
           <div className={styles.statusbar}>
             <div className={styles.stage}>
-              <h5>Stage 1</h5>
-              <h5>Lvl.1</h5>
+              <h4>Stage 1</h4>
+              <h4>Lvl.1</h4>
             </div>
 
-            <div className={styles.attacktitle}>
-              <h5>Attack</h5>
-              <h5>450/500</h5>
+            <div className={styles.attackSkill}>
+              <h4 className={styles.attacktitle}>Attack</h4>
+              <h4 className={styles.percentage}>{attackPercentage*5}/500</h4>
             </div>
             <div className={styles.attack}>
               <div
@@ -51,9 +51,9 @@ export default function Index() {
               ></div>
             </div>
 
-            <div className={styles.defensetitle}>
-              <h5>Defense</h5>
-              <h5>450/500</h5>
+            <div className={styles.defenseSkill}>
+              <h4 className={styles.defensetitle}>Defense</h4>
+              <h4 className={styles.percentage}>{attackPercentage*5}/500</h4>
             </div>
             <div className={styles.defense}>
               <div
