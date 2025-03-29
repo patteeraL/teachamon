@@ -1,9 +1,15 @@
 import styles from "@/styles/Home.module.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from '@/lib/supabase';
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function Index() {
   const [isPanelOpen, setPanelOpen] = useState(false);

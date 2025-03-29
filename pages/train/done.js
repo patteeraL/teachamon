@@ -1,28 +1,62 @@
-import styles from "@/styles/Train.module.css"
-import { useEffect, useState } from 'react';
+import styles from "@/styles/Train.module.css";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function Done() {
-  const [subject, setSubject] = useState('');
+  const [subject, setSubject] = useState("");
   const [monName, setMonname] = useState(""); 
-  const [selectedMon, setSelectedMon] = useState(''); 
+  const [selectedMon, setSelectedMon] = useState(""); 
+  const [result, setResult] = useState(null); // Store if the answer was correct
 
   useEffect(() => {
-    const storedSubject = localStorage.getItem('subject');
-    const storedMonName = localStorage.getItem('Monname');
-    const storedMonId = localStorage.getItem('monId');
-    if (storedSubject) {
-      setSubject(storedSubject);
+    const storedSubject = localStorage.getItem("subject");
+    const storedMonName = localStorage.getItem("Monname");
+    const storedMonId = localStorage.getItem("monId");
+    const storedResult = localStorage.getItem("result"); // Get the result
+
+    if (storedSubject) setSubject(storedSubject);
+    if (storedMonName) setMonname(storedMonName);
+    if (storedMonId) setSelectedMon(storedMonId);
+    if (storedResult !== null) setResult(storedResult === "true"); // Convert to boolean
+
+    async function updateXP() {
+      if (!monName || result === false) return; // Only update XP on correct answer
+
+      const { data, error } = await supabase
+        .from("name")
+        .select("xp")
+        .eq("name", monName)
+        .single();
+
+      if (error || !data) {
+        console.error("Error fetching XP:", error);
+        return;
+      }
+
+      const newXP = data.xp + 50;
+
+      const { error: updateError } = await supabase
+        .from("name")
+        .update({ xp: newXP })
+        .eq("name", monName);
+
+      if (updateError) {
+        console.error("Error updating XP:", updateError);
+      } else {
+        console.log(`${monName} XP updated to ${newXP}`);
+      }
     }
-    if (storedMonName) {
-      setMonname(storedMonName);
-    }
-    if (storedMonId) {
-      setSelectedMon(storedMonId);
-    }
-  }, []);
+
+    updateXP(); // Call the function inside useEffect
+  }, [monName, result]); // Depend on `monName` and `result`
 
   const skillStyle = {
     marginTop: '20px',
@@ -30,20 +64,11 @@ export default function Done() {
     color: subject === 'Maths' ? '#E55F42' : '#6042E5', 
   };
 
-  const attackSkill = (<>
-    Attack +50xp !
-  </>);
-  const defenseSkill = (<>
-    Defense +50xp !
-  </>);
-
-  const result = true;
-
-  const correct = (
+  const correctMessage = (
     <>
       <h6>{monName}: I see! I think I got it now. Thank you!</h6>
       <p style={skillStyle}>
-        {subject === "Maths" ? attackSkill : defenseSkill}
+        {subject === "Maths" ? "Attack +50 XP!" : "Defense +50 XP!"}
       </p>
       <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/chat`}>
               Next
@@ -69,7 +94,7 @@ export default function Done() {
     <>
       <Head>
         <title>{subject} | Teachamon</title>
-        <meta name="keyword" content=""/>
+        <meta name="keyword" content="" />
       </Head>
       <div className={styles.trainbg}>
         <div className= {styles.title}>
@@ -81,7 +106,7 @@ export default function Done() {
             <h3>{monName}</h3>
           </div>
           <div>
-            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon" />
           </div>
         </div>
         <div className={styles.containerH}>

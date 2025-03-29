@@ -1,25 +1,26 @@
 import styles from "@/styles/Train.module.css";
 import Choice from "@/components/choice";
+import SubjectCard from "@/components/subject_card"; // Import SubjectCard
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function Subject() {
-  const [subject, setSubject] = useState('');
+  const [subject, setSubject] = useState("");
   const [monName, setMonname] = useState(""); 
-  const [selectedMon, setSelectedMon] = useState(''); 
+  const [selectedMon, setSelectedMon] = useState(""); 
   const [selectedChoice, setSelectedChoice] = useState(null); 
 
   const handleChoiceClick = (choice) => {
     setSelectedChoice(choice);
-    console.log("subject:", choice); 
+    localStorage.setItem("result", choice === "10100");
   };
 
   useEffect(() => {
-    const storedSubject = localStorage.getItem('subject');
-    const storedMonName = localStorage.getItem('Monname');
-    const storedMonId = localStorage.getItem('monId');
+    const storedSubject = localStorage.getItem("subject");
+    const storedMonName = localStorage.getItem("Monname");
+    const storedMonId = localStorage.getItem("monId");
     if (storedSubject) {
       setSubject(storedSubject);
     }
@@ -35,7 +36,7 @@ export default function Subject() {
     <>
       <Head>
         <title>{subject} | Teachamon</title>
-        <meta name="keyword" content=""/>
+        <meta name="keyword" content="" />
       </Head>
         <div className = {styles.trainbg}>
         <div className= {styles.title}>
@@ -47,7 +48,7 @@ export default function Subject() {
             <h3>{monName}</h3>
           </div>
           <div>
-            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
+            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon" />
           </div>
           
         </div>
@@ -58,26 +59,10 @@ export default function Subject() {
             How do I convert a decimal number into binary?
           </h6>
         </div>
-        <Choice 
-          onClick={handleChoiceClick} 
-          selectedChoice={selectedChoice} 
-          choice="Choice 1" 
-        />
-        <Choice 
-          onClick={handleChoiceClick} 
-          selectedChoice={selectedChoice} 
-          choice="Choice 2" 
-        />
-        <Choice 
-          onClick={handleChoiceClick} 
-          selectedChoice={selectedChoice} 
-          choice="Choice 3" 
-        />
-        <Choice 
-          onClick={handleChoiceClick} 
-          selectedChoice={selectedChoice} 
-          choice="Choice 4" 
-        />
+        <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="10100" />
+        <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="11111" />
+        <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="IDK" />
+        <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="All is correct" />
         <div>
         <Link
   className={`${styles.mainbtn} ${!selectedChoice ? styles.disabledBtn : ''}`}
@@ -93,5 +78,3 @@ export default function Subject() {
     </>
   );
 }
-
-
