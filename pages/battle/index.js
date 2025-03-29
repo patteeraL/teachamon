@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export function DotsLoading({ isReady }) {
   const [dots, setDots] = useState(".");
@@ -16,6 +17,7 @@ export function DotsLoading({ isReady }) {
 }
 
 export default function Index() {
+  const router = useRouter();
   const [selectedMon, setSelectedMon] = useState("");
   const [monName, setMonname] = useState("");
   const [oppMonId, setOppMonId] = useState("mon2");
@@ -39,13 +41,19 @@ export default function Index() {
       setMonname(storedMonName);
     }
 
-    // Wait 5 seconds before revealing opponent info and changing the waiting text
+    // Wait 5 seconds before revealing opponent info and enabling the battle button
     const timer = setTimeout(() => {
       setShowOpponent(true);
     }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleBattleStart = () => {
+    if (showOpponent) {
+      router.push("/battle/battleground");
+    }
+  };
 
   return (
     <>
@@ -94,9 +102,12 @@ export default function Index() {
 
         {/* Button Sets */}
         <div className={styles.btnsets}>
-          <button className={styles.waitingButton}>
-            <DotsLoading isReady={showOpponent} />
-          </button>
+        <button
+          className={`${styles.waitingButton} ${showOpponent ? styles.readyButton : ""}`}
+          onClick={handleBattleStart}
+        >
+          <DotsLoading isReady={showOpponent} />
+        </button>
           <Link href="../home" className={styles.cancelButton}>
             Quit
           </Link>

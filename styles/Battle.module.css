@@ -85,6 +85,19 @@
     cursor: pointer;
 }
 
+.readyButton {
+    padding: 10px 10px;
+    background-color: #F6A714;
+    color: #000000;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    cursor: pointer;
+  }
+
 .cancelButton {
     padding: 10px 10px;
     background-color: #FF5050;
