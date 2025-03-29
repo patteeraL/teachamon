@@ -41,6 +41,7 @@
     align-items: center;
     justify-content: space-between;
     filter: drop-shadow(0 4px 8px white);
+    padding: 0 10px;
   
 }
 .ranktitle {
@@ -123,8 +124,8 @@
 
   .yourRank{
     font-weight: 900;
-    font-size: 11px;
-    margin-right: 15px;
+    font-size: 13px;
+
    
   }
 
