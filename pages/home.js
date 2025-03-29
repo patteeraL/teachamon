@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 
 export default function Index() {
+  const [isPanelOpen, setPanelOpen] = useState(false);
   const [Monname, setMonname] = useState(""); 
   const [selectedMon, setSelectedMon] = useState(''); 
       useEffect(() => {
