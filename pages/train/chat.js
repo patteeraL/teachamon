@@ -31,8 +31,8 @@ export default function MathsChat() {
         <title>{subject} | Teachamon</title>
         <meta name="keyword" content=""/>
       </Head>
-      <div className={styles.container}>
-        <div>
+      <div className={styles.trainbg}>
+        <div className= {styles.title}>
           <h5>TRAINING</h5>
           <h3>{subject}</h3>
         </div>
@@ -44,12 +44,11 @@ export default function MathsChat() {
             <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon"/>
           </div>
         </div>
-    
+        <div className={styles.containerH}>
         <div>
-          <h2 className={styles.question}>
-          Can you clarify this?
-          Say it in ur own words!
-          </h2>
+          <p className={styles.monName}>{monName}</p><h6 className={styles.question}>
+            How do I convert a decimal number into binary?
+          </h6>
         </div>
         <div className={styles.row}>
          <InputAns/>
@@ -57,6 +56,7 @@ export default function MathsChat() {
         <div>
           <Link className={styles.mainbtn} type="submit" href={`/train/success`}>Submit</Link>
         </div>
+      </div>
       </div>
     </>
   );

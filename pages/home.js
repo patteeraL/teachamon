@@ -31,15 +31,20 @@ export default function Index() {
       </Head>
       <div className={styles.container}>
         <div className={styles.nav}>
-          <h3>TEACHAMON</h3>
+          <div className={styles.title}>
+            <h5>The Adventure of</h5>
+          <h2>TEACHAMON</h2>
+          </div>
+          
           <div className={styles.ranking}>
-            <h4>Rankings</h4>
-            <ol className={styles.orderedList} type="1">
+            <div className={styles.ranktitle}><h4>Rankings</h4></div>
+            <div><ol className={styles.orderedList} type="1">
               <li>Thee | 10 wins</li>
               <li>Ice | 9 wins</li>
               <li>ティチモン | 8 wins</li>
             </ol>
-            <h4 className={styles.yourRank}>10. You | 0 wins</h4>
+            <h5 className={styles.yourRank}>10. You | 0 wins</h5></div>
+           
           </div>
         </div>
         <div className={styles.bg}>
@@ -49,16 +54,16 @@ export default function Index() {
           <div className={styles.mon}>
             <Image src= {selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"} width={224} height={224} alt="mon" />
           </div>
-
+          <div className={styles.statusbg}>
           <div className={styles.statusbar}>
             <div className={styles.stage}>
-              <h4>Stage 1</h4>
-              <h4>Lvl.1</h4>
+              <h5>Stage 1</h5>
+              <h5>Lvl.1</h5>
             </div>
 
             <div className={styles.attackSkill}>
-              <h4 className={styles.attacktitle}>Attack</h4>
-              <h4 className={styles.percentage}>{attackPercentage * 5}/500</h4>
+              <h5 className={styles.attacktitle}>Attack</h5>
+              <h5 className={styles.percentage}>{attackPercentage * 5}/500</h5>
             </div>
             <div className={styles.attack}>
               <div
@@ -68,8 +73,8 @@ export default function Index() {
             </div>
 
             <div className={styles.defenseSkill}>
-              <h4 className={styles.defensetitle}>Defense</h4>
-              <h4 className={styles.percentage}>{defensePercentage * 5}/500</h4>
+              <h5 className={styles.defensetitle}>Defense</h5>
+              <h5 className={styles.percentage}>{defensePercentage * 5}/500</h5>
             </div>
             <div className={styles.defense}>
               <div
@@ -82,9 +87,9 @@ export default function Index() {
           {/* Buttons */}
           <div className={styles.btngroup}>
             <Link href="/train" legacyBehavior>
-              <a className="mainbtn">Train</a>
+              <a className={styles.trainbtn}>Train</a>
             </Link>
-            <button className="mainbtn" onClick={() => setPanelOpen(true)}>
+            <button className={styles.bttbtn} onClick={() => setPanelOpen(true)}>
               Battle
             </button>
           </div>
@@ -107,7 +112,7 @@ export default function Index() {
                     className={styles.inputField} // Use the scoped class
                   />
                   <Link href="/battle" legacyBehavior>
-                    <a className={styles.mainbtn}>Join Room</a> 
+                    <a className={styles.mainbtn2}>Join Room</a> 
                   </Link>
 
                 </div>
@@ -119,6 +124,7 @@ export default function Index() {
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
     </>
