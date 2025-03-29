@@ -17,6 +17,8 @@ export default function Index() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [userRank, setUserRank] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [monster, setMonster] = useState(null);
+  const [error, setError] = useState(null);
 
   // Initialize percentages as 0 or default values
   const [attackPercentage, setAttackPercentage] = useState(0);
@@ -94,6 +96,47 @@ export default function Index() {
     fetchMonsterData(); // Fetch monster data after leaderboard is fetched
 
   }, [selectedMon]);  // Fetch data again if selectedMon changes
+
+  useEffect(() => {
+    const fetchMonster = async () => {
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        setError("User ID is missing!");
+        return;
+      }
+
+      try {
+        // Fetch the monster data for the logged-in user
+        const { data, error } = await supabase
+          .from("monsters")
+          .select("*")
+          .eq("user_id", userId)
+          .single();
+
+        if (error) {
+          console.error("Supabase Fetch Error:", error.message);
+          setError(error.message);
+          return;
+        }
+
+        setMonster(data);
+      } catch (err) {
+        console.error("Error fetching monster data:", err.message);
+        setError(err.message);
+      }
+    };
+
+    fetchMonster();
+  }, []);
+
+  if (error) {
+    return <p style={{ color: "red" }}>{error}</p>;
+  }
+
+  if (!monster) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
