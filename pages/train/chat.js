@@ -75,14 +75,23 @@ export default function MathsChat() {
            {/* Display feedback if available; otherwise, show the question */}
           {feedback ? feedback : question}
           </h6>
+  
     
         {/* Display score and answer status if feedback exists */}
         {feedback && (
           <div className={styles.feedbackDetails}>
             <p>Score: {score}</p>
             <p>Answer Status: {answerStatus}</p>
+            <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/chat`}>
+          Try Again?
+        </Link>
+        <Link className={styles.mainbtn} style={{ marginTop: '20px' }} href={`/train/success`}>
+              Next
+            </Link>
           </div>
+          
         )}
+        
 
         {/* If no feedback, show the text area and submit button */}
         {!feedback && (
