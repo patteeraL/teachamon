@@ -1,5 +1,6 @@
 .container{
-    background: white;
+    background-image: url("/home.svg");
+    background-size: cover;
     width: 402px;
     height: 100vh;
     display:flex;
@@ -10,7 +11,6 @@
 .nav{
     width: 402px;
     height: 283px;
-    background: #D9D9D9;
     color: black;
 }
 
@@ -24,7 +24,6 @@
 .bg{
     width: 402px;
     height: 100vh;
-    background: rgb(255, 175, 128);
     display:flex;
     flex-direction: column;
     align-items: center;

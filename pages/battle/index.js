@@ -1,8 +1,9 @@
 import styles from "@/styles/Battle.module.css";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect} from "react";
-/* Battle - Waiting Room */
+
 export function DotsLoading() {
   const [dots, setDots] = useState(".");
 
@@ -18,13 +19,28 @@ export function DotsLoading() {
 }
 export default function Index() {
   const [isMatchFound, setMatchFound] = useState(false);
+  const [selectedMon, setSelectedMon] = useState(''); 
+  const [monName, setMonname] = useState(""); 
+
+
+  useEffect(() => {
+    
+    const storedMonId = localStorage.getItem('monId');
+    const storedMonName = localStorage.getItem('Monname');
+    if (storedMonId) {
+      setSelectedMon(storedMonId);
+    }
+    if (storedMonName) {
+      setMonname(storedMonName);
+    }
+  }, []);
   return (
     <>
       <Head>
         <title>Battle | Teachamon</title>
         <meta name="keyword" content="" />
       </Head>
-      <div className={styles.container}>
+      <div className={styles.container_wait}>
         {/* Headline section aligned to the left */}
         <div className={styles.headline}>
           <h3>Battle</h3>
@@ -40,8 +56,8 @@ export default function Index() {
         {/* Sprites aligned horizontally with names */}
         <div className={styles.spritesrow}>
           <div className={styles.spritebox}>
-            <p className={styles.monName}>player 1</p>
-            <Image src="/mon1.svg" width={224} height={224} className={styles.sprite1} alt="mon1" />
+            <p className={styles.monName}>{monName}</p>
+            <Image src={`/${selectedMon}.svg`} width={224} height={224} className={styles.sprite1} alt="mon1" />
           </div>
           <div className={styles.spritebox}>
             <p className={styles.monName}>???</p>
@@ -49,10 +65,9 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Waiting button at the bottom */}
         <div className={styles.btnsets}>
           <button className={styles.waitingButton}><DotsLoading /></button>
-          <button className={styles.cancelButton}>Cancel Match</button>
+          <Link href="../home" className={styles.cancelButton}>Quit</Link>
         </div>
       </div>
     </>

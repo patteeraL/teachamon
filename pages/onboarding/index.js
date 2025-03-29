@@ -27,8 +27,9 @@ export default function Index() {
       <meta name="keyword" content=""/>
     </Head>
     <div className={styles.container}>
-        <h2>Select</h2>
-        <h2>Your Character</h2>
+        <h2>Choose Your</h2>
+        <h2>
+        Disciple!</h2>
         <div className={styles.monoptions}>
         <div
             className={`${styles.monbtn} ${selectedMon === "mon1" ? styles.selected : ""}`}

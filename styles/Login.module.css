@@ -1,5 +1,6 @@
 .container {
-    background: white;
+    background-image: url("/signup.svg");
+    background-size: cover;
     width: 402px;
     height: 100vh;
     display: flex;
@@ -20,9 +21,11 @@
     width: 300px;
     padding: 12px;
     margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     font-size: 16px;
+    background: #FDFBF7;
+    color: black;
+    border-radius: 12px;
+    border: 2px solid #cacac9;
   }
   
   .passwordWrapper {
@@ -52,19 +55,45 @@
     width: 300px;
     padding: 12px;
     margin-top: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    background-color: #F6A714;
+    color: #4A3206;
+    border: 2px solid #d99312;
+    border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
   }
   
   .mainbtn:disabled {
-    background-color: #cccccc;
+    background-color: #d99312;
     cursor: not-allowed;
   }
   
+  .loginbtn {
+    width: 300px;
+    padding: 12px;
+    margin-top: 16px;
+    font-family:'Press Start 2P';
+    background-color: #F6A714;
+    color: #4A3206;
+    border: 2px solid #d99312;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .signupbtn {
+    width: 300px;
+    padding: 12px;
+    margin-top: 16px;
+    font-family:'Press Start 2P';
+    background-color: #4A3206;
+    color: #F6A714;
+    border: 2px solid #7c5204;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
   .errorMessage {
     color: #f44336;
     margin: 8px 0;
