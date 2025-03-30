@@ -67,30 +67,32 @@ export default function Index() {
     // Fetch monster data (xp_math, xp_sci) for the selected monster
     const fetchMonsterData = async () => {
       if (!selectedMon) return;
-
+    
       try {
+        console.log("Fetching data for:", Monname);
+    
         const { data, error } = await supabase
           .from("monsters")
           .select("xp_math, xp_sci")
-          .eq("name", selectedMon); // Fetch both xp values for selected monster
-
+          .eq("name", Monname);
+    
         if (error) throw error;
-
-        if (data && data.length > 0) {
-          const xpMath = data[0];
-          const xpSci = data[1];
-
-          // Calculate attack and defense percentages
-          setAttackPercentage(Math.min((xpMath / 500) * 100, 100));
-          setDefensePercentage(Math.min((xpSci / 500) * 100, 100));
-        } else {
+    
+        if (data.length === 1) {
+          setAttackPercentage(Math.min((data[0].xp_math / 500) * 100, 100));
+          setDefensePercentage(Math.min((data[0].xp_sci / 500) * 100, 100));
+        } else if (data.length === 0) {
           console.warn("No data found for monster:", selectedMon);
+        } else {
+          console.warn("Multiple rows found for monster:", selectedMon, data);
         }
       } catch (err) {
         console.error("Error fetching monster data:", err.message);
         setError(err.message);
       }
     };
+    
+
 
     fetchLeaderboardData();
     fetchMonsterData(); // Fetch monster data after leaderboard is fetched
