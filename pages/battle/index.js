@@ -20,7 +20,7 @@ export default function Index() {
   const router = useRouter();
   const [selectedMon, setSelectedMon] = useState("");
   const [monName, setMonname] = useState("");
-  const [oppMonId, setOppMonId] = useState("mon1");
+  const [oppMonId, setOppMonId] = useState("mon2");
   const [oppMonName, setOppMonName] = useState("Trainer");
   const [showOpponent, setShowOpponent] = useState(false);
 

@@ -9,7 +9,7 @@ export default function Battle() {
   const [isEnd, setEnd] = useState(false);
   const [monName, setMonname] = useState(""); 
   const [selectedMon, setSelectedMon] = useState('');
-  const [oppMonId, setOppMonId] = useState("mon1");
+  const [oppMonId, setOppMonId] = useState("mon2");
   const [oppMonName, setOppMonName] = useState("Trainer");
   const [round, setRound] = useState(1);
   const [playerHP, setPlayerHP] = useState(100); // Player's HP
@@ -152,8 +152,8 @@ export default function Battle() {
           abort: false,
         });
         setBattleMessage(""); // Clear message after 5 seconds
-      }, 1000); // 5 seconds timeout
-    }, 1000); // Delay before processing both actions
+      }, 2000); // 5 seconds timeout
+    }, 2000); // Delay before processing both actions
 
   };
 
@@ -253,15 +253,13 @@ export default function Battle() {
             {!battleMessage && (
               <div>
                 <h4 style={{ color: "#3C80B4", marginTop: "30px" }}>
-                  Round {round} Results
+                  Your Turn!
                 </h4>
               </div>
             )}
           </div>
 
-          <div className={styles.AboutButton}>
-            <button onClick={handleAboutButtonClick}>About</button>
-          </div>
+      
 
           {isEnd && (
             <div className={styles.darkpanel}>
