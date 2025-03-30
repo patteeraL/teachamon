@@ -64,8 +64,8 @@ export default function Mon() {
       <div className={styles.container}>
         <h2>Let's Give it a Name!</h2>
         <div className={styles.avatar}>
-          <Image
-            src={selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"}
+          <img
+            src={selectedMon === "mon1" ? "/mon1.gif" : "/mon2.gif"}
             width={258}
             height={258}
             alt={selectedMon}

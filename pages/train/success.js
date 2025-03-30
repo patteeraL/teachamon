@@ -106,8 +106,8 @@ export default function Success() {
             <h3>{monName}</h3>
           </div>
           <div>
-            <Image
-              src={`/${selectedMon}.svg`}
+            <img
+              src={`/${selectedMon}.gif`}
               width={186}
               height={186}
               alt="mon"

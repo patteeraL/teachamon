@@ -66,13 +66,13 @@ export default function Index() {
             className={`${styles.monbtn} ${selectedMon === "mon1" ? styles.selected : ""}`}
             onClick={() => handleImageClick("mon1")}
           >
-            <Image src="/mon1.svg" width={176} height={176} alt="mon1" />
+            <img src="/mon1.gif" width={176} height={176} alt="mon1" />
           </div>
           <div
             className={`${styles.monbtn} ${selectedMon === "mon2" ? styles.selected : ""}`}
             onClick={() => handleImageClick("mon2")}
           >
-            <Image src="/mon2.svg" width={176} height={176} alt="mon2" />
+            <img src="/mon2.gif" width={176} height={176} alt="mon2" />
           </div>
         </div>
         <button className="mainbtn" onClick={handleSave}>

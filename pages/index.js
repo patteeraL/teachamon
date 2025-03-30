@@ -31,7 +31,7 @@ export default function Index() {
         
         {!showLoginForm && (
           <>
-          <Image src="otter.svg" width={246} height={246} alt="icon"/>
+          <img src="mon2.gif" width={246} height={246} alt="icon"/>
             <button className={styles.loginbtn} onClick={handleLoginClick}>
               Log in
             </button>

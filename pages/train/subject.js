@@ -48,7 +48,7 @@ export default function Subject() {
             <h3>{monName}</h3>
           </div>
           <div>
-            <Image src={`/${selectedMon}.svg`} width={186} height={186} alt="mon" />
+            <img src={`/${selectedMon}.gif`} width={186} height={186} alt="mon" />
           </div>
           
         </div>
