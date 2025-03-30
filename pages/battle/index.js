@@ -20,7 +20,7 @@ export default function Index() {
   const router = useRouter();
   const [selectedMon, setSelectedMon] = useState("");
   const [monName, setMonname] = useState("");
-  const [oppMonId, setOppMonId] = useState("mon1");
+  const [oppMonId, setOppMonId] = useState("mon2");
   const [oppMonName, setOppMonName] = useState("Trainer");
   const [showOpponent, setShowOpponent] = useState(false);
 
@@ -85,8 +85,8 @@ export default function Index() {
         <div className={styles.spritesrow}>
           <div className={styles.spritebox}>
             <p className={styles.monName}>{monName}</p>
-            <Image
-              src={`/${selectedMon}.svg`}
+            <img
+              src={`/${selectedMon}.gif`}
               width={224}
               height={224}
               className={styles.sprite1}
@@ -98,8 +98,8 @@ export default function Index() {
             <p className={styles.monName}>
               {showOpponent ? oppMonName : "???"}
             </p>
-            <Image
-              src={showOpponent ? `/${oppMonId}.svg` : "/mon2.svg"}
+            <img
+              src={showOpponent ? `/${oppMonId}.gif` : "/mon2.gif"}
               width={224}
               height={224}
               className={showOpponent ? styles.sprite1 : styles.sprite2}

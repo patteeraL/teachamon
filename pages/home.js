@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 
+
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -138,8 +140,8 @@ export default function Index() {
             <h3>{Monname}</h3>
           </div>
           <div className={styles.mon}>
-            <Image 
-              src={selectedMon === "mon1" ? "/mon1.svg" : "/mon2.svg"} 
+            <img
+              src={selectedMon === "mon1" ? "/mon1.gif" : "/mon2.gif"} 
               width={224} 
               height={224} 
               alt="mon" 
