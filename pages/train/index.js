@@ -11,26 +11,40 @@ const supabase = createClient(
 );
 
 export default function Index() {
-  const [subjects, setSubjects] = useState([]); // Store subjects from DB
   const [subject, setSubject] = useState("");
+  const [selectedMon, setSelectedMon] = useState("");
+  const [attackPercentage, setAttackPercentage] = useState(0);
+  const [defensePercentage, setDefensePercentage] = useState(0);
+  
+  // Default subjects
+  const subjects = ["Maths", "Science"];
 
   useEffect(() => {
-    async function fetchSubjects() {
-      const { data, error } = await supabase
-        .from("monsters")  // Use "monsters" table
-        .select("name")    // Fetch names of the monsters (subjects)
-        .neq("xp_math", null) // Ensure xp_math is not null (or use any other condition)
-        .neq("xp_sci", null); // Ensure xp_sci is not null (if that's required)
+    const fetchMonsterData = async () => {
+      if (!selectedMon) return;
 
-      if (error) {
-        console.error("Error fetching subjects:", error);
-      } else {
-        setSubjects(data.map((s) => s.name)); // Extract subject names (monster names)
+      try {
+        const { data, error } = await supabase
+          .from("monsters")
+          .select("xp_math, xp_sci")
+          .eq("name", selectedMon);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const monster = data[0];
+          setAttackPercentage(Math.min((monster.xp_math / 500) * 100, 100));
+          setDefensePercentage(Math.min((monster.xp_sci / 500) * 100, 100));
+        } else {
+          console.warn("No data found for monster:", selectedMon);
+        }
+      } catch (err) {
+        console.error("Error fetching monster data:", err.message);
       }
-    }
+    };
 
-    fetchSubjects();
-  }, []);
+    fetchMonsterData();
+  }, [selectedMon]);
 
   const handleCardClick = (selectedSubject) => {
     setSubject(selectedSubject);
@@ -47,19 +61,14 @@ export default function Index() {
         <div>
           <h5>TRAINING</h5>
           <h3>Choose a Subject</h3>
-
-          {subjects.length > 0 ? (
-            subjects.map((sub) => (
-              <SubjectCard
-                key={sub}
-                selected={subject === sub}
-                onClick={() => handleCardClick(sub)}
-                subject={sub}
-              />
-            ))
-          ) : (
-            <p>Loading subjects...</p>
-          )}
+          {subjects.map((sub) => (
+            <SubjectCard
+              key={sub}
+              selected={subject === sub}
+              onClick={() => handleCardClick(sub)}
+              subject={sub}
+            />
+          ))}
         </div>
 
         <div>

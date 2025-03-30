@@ -31,10 +31,9 @@ export default function Index() {
     if (storedMonName) setMonname(storedMonName);
     if (storedMonId) setSelectedMon(storedMonId);
 
-    // Fetch leaderboard data from view tablen 
+    // Fetch leaderboard data from view table 
     const fetchLeaderboardData = async () => {
       try {
-        // Fetch top players from the view
         const { data: leaderboardData, error } = await supabase
           .from('leaderboard') // Your view table
           .select('username, wins, rank')
@@ -42,7 +41,6 @@ export default function Index() {
 
         if (error) throw error;
 
-        // Get top 3 players
         const topPlayers = leaderboardData.slice(0, 5);
         setLeaderboard(topPlayers);
 
@@ -56,7 +54,6 @@ export default function Index() {
         }
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
-        // Fallback data if view is empty or error occurs
         setLeaderboard([
           { username: "Thee", wins: 10, rank: 1 },
           { username: "Ice", wins: 9, rank: 2 },
@@ -69,73 +66,39 @@ export default function Index() {
 
     // Fetch monster data (xp_math, xp_sci) for the selected monster
     const fetchMonsterData = async () => {
-      if (!selectedMon) return;  // Ensure selectedMon is set before fetching
-
-      const { data, error } = await supabase
-        .from("monsters")
-        .select("xp_math, xp_sci")
-        .eq("id", selectedMon);  // Assuming "id" is used to identify the selected monster
-
-      if (error) {
-        console.error("Error fetching monster data:", error);
-        return;
-      }
-
-      if (data && data.length > 0) {
-        const monster = data[0];
-        // Divide xp_math and xp_sci by 500 and set percentages
-        const attackPercentage = Math.min((monster.xp_math / 500) * 100, 100); // Cap at 100%
-        const defensePercentage = Math.min((monster.xp_sci / 500) * 100, 100); // Cap at 100%
-
-        setAttackPercentage(attackPercentage);
-        setDefensePercentage(defensePercentage);
-      }
-    };
-
-    fetchLeaderboardData();
-    fetchMonsterData(); // Fetch monster data after leaderboard is fetched
-
-  }, [selectedMon]);  // Fetch data again if selectedMon changes
-
-  useEffect(() => {
-    const fetchMonster = async () => {
-      const userId = localStorage.getItem("userId");
-
-      if (!userId) {
-        setError("User ID is missing!");
-        return;
-      }
+      if (!selectedMon) return;
 
       try {
-        // Fetch the monster data for the logged-in user
         const { data, error } = await supabase
           .from("monsters")
-          .select("*")
-          .eq("user_id", userId)
-          .single();
+          .select("xp_math, xp_sci")
+          .eq("name", selectedMon); // Fetch both xp values for selected monster
 
-        if (error) {
-          console.error("Supabase Fetch Error:", error.message);
-          setError(error.message);
-          return;
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const xpMath = data[0];
+          const xpSci = data[1];
+
+          // Calculate attack and defense percentages
+          setAttackPercentage(Math.min((xpMath / 500) * 100, 100));
+          setDefensePercentage(Math.min((xpSci / 500) * 100, 100));
+        } else {
+          console.warn("No data found for monster:", selectedMon);
         }
-
-        setMonster(data);
       } catch (err) {
         console.error("Error fetching monster data:", err.message);
         setError(err.message);
       }
     };
 
-    fetchMonster();
-  }, []);
+    fetchLeaderboardData();
+    fetchMonsterData(); // Fetch monster data after leaderboard is fetched
+
+  }, [selectedMon]);  // Re-fetch if selectedMon changes
 
   if (error) {
     return <p style={{ color: "red" }}>{error}</p>;
-  }
-
-  if (!monster) {
-    return <p>Loading...</p>;
   }
 
   return (
@@ -167,7 +130,6 @@ export default function Index() {
               </>
             )}
           </div>
-
         </div>
         <div className={styles.bg}>
           <div className={styles.monname}>
@@ -198,7 +160,7 @@ export default function Index() {
 
               <div className={styles.attackSkill}>
                 <h5 className={styles.attacktitle}>Attack</h5>
-                <h5 className={styles.percentage}>{attackPercentage * 5}/500</h5>
+                <h5 className={styles.percentage}>{Math.floor(attackPercentage)} / 500</h5>
               </div>
               <div className={styles.attack}>
                 <div
@@ -209,7 +171,7 @@ export default function Index() {
 
               <div className={styles.defenseSkill}>
                 <h5 className={styles.defensetitle}>Defense</h5>
-                <h5 className={styles.percentage}>{defensePercentage * 5}/500</h5>
+                <h5 className={styles.percentage}>{Math.floor(defensePercentage)} / 500</h5>
               </div>
               <div className={styles.defense}>
                 <div

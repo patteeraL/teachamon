@@ -14,7 +14,7 @@ export default function Subject() {
 
   const handleChoiceClick = (choice) => {
     setSelectedChoice(choice);
-    localStorage.setItem("result", choice === "10100");
+    localStorage.setItem("result", choice === "10100" ? "true" : "false");
   };
 
   useEffect(() => {

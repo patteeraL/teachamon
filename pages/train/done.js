@@ -28,35 +28,46 @@ export default function Done() {
     if (storedResult !== null) setResult(storedResult === "true"); // Convert to boolean
 
     async function updateXP() {
-      if (!monName || result === false) return; // Only update XP on correct answer
-
-      const { data, error } = await supabase
-        .from("name")
-        .select("xp")
-        .eq("name", monName)
-        .single();
-
-      if (error || !data) {
-        console.error("Error fetching XP:", error);
-        return;
-      }
-
-      const newXP = data.xp + 50;
-
-      const { error: updateError } = await supabase
-        .from("name")
-        .update({ xp: newXP })
-        .eq("name", monName);
-
-      if (updateError) {
-        console.error("Error updating XP:", updateError);
-      } else {
-        console.log(`${monName} XP updated to ${newXP}`);
+      if (!monName || result === false) return; // Only update XP if the answer is correct
+    
+      // Define the column and XP field based on subject
+      const column = subject === "Maths" ? "xp_math" : "xp_sci";
+    
+      try {
+        const { data, error } = await supabase
+          .from("monsters")
+          .select(column)
+          .eq("name", monName)
+          .single();  // Ensure only one row is returned
+    
+        if (error || !data) {
+          console.error("Error fetching XP:", error);
+          return;
+        }
+    
+        const currentXP = data[column] || 0; // Ensure the XP is not undefined
+    
+        // Increment XP by 50
+        const newXP = currentXP + 50;
+    
+        // Update XP in the database
+        const { error: updateError } = await supabase
+          .from("monsters")
+          .update({ [column]: newXP })
+          .eq("name", monName);
+    
+        if (updateError) {
+          console.error("Error updating XP:", updateError);
+        } else {
+          console.log(`${monName} ${column} updated to ${newXP}`);
+        }
+      } catch (error) {
+        console.error("Error in updateXP:", error);
       }
     }
 
     updateXP(); // Call the function inside useEffect
-  }, [monName, result]); // Depend on `monName` and `result`
+  }, [monName, result, subject]); // Depend on `monName`, `result`, and `subject`
 
   const skillStyle = {
     marginTop: '20px',
@@ -71,8 +82,8 @@ export default function Done() {
         {subject === "Maths" ? "Attack +50 XP!" : "Defense +50 XP!"}
       </p>
       <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/chat`}>
-              Next
-            </Link>
+        Next
+      </Link>
     </>
   );
 
@@ -83,7 +94,7 @@ export default function Done() {
         <Link className={styles.mainbtn} style={{ marginTop: '100px' }} href={`/train/subject`}>
           Try Again?
         </Link>
-        <Link className={styles.mainbtn} style={{ marginTop: '20px' , background: '#4A3206', color: '#F6A714' }}href={`/train/chat`}>
+        <Link className={styles.mainbtn} style={{ marginTop: '20px', background: '#4A3206', color: '#F6A714' }} href={`/train/chat`}>
           Skip Question
         </Link>
       </div>
@@ -97,7 +108,7 @@ export default function Done() {
         <meta name="keyword" content="" />
       </Head>
       <div className={styles.trainbg}>
-        <div className= {styles.title}>
+        <div className={styles.title}>
           <h5>TRAINING</h5>
           <h3>{subject}</h3>
         </div>
@@ -111,11 +122,10 @@ export default function Done() {
         </div>
         <div className={styles.containerH}>
           <div>
-            <h2 className={styles.done}>
-              {result === false ? wrong : correct}
-            </h2>
+            <h7 className={styles.done}>
+              {result === false ? wrong : correctMessage}
+            </h7>
           </div>
-        
         </div>
       </div>
     </>
