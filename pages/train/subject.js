@@ -56,7 +56,7 @@ export default function Subject() {
   
         <div>
           <p className={styles.monName}>{monName}</p><h6 className={styles.question}>
-            How do I convert a decimal number into binary?
+            How do I convert 20 into binary?
           </h6>
         </div>
         <Choice onClick={handleChoiceClick} selectedChoice={selectedChoice} choice="10100" />
