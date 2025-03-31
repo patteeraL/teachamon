@@ -1,4 +1,6 @@
 # Teachamon | Educational Web App Game
+Teachamon is an educational web application that combines learning with gaming. In this game, users lead a character (a monster) through a journey of training and skill enhancement. As players train their monsters by completing educational challenges, their monsters' abilities improve. With each new skill acquired, users can take their monsters into battle against other players on the battlefield, testing both their knowledge and strategic skills in real-time competitions. Teachamon offers a fun and interactive way to learn while engaging in exciting battles with friends and other users.
+
 <p align="center"> <img src="public/Screenshot 2568-03-31 at 09.47.59.png" width="300"/> </p> <p align="center"><i><b>Figure 1:</b> Log in/Sign up page</i></p> <p align="center"> <img src="public/Screenshot 2568-03-31 at 09.53.50.png" width="300"/> </p> <p align="center"><i><b>Figure 2:</b> Home page</i></p>
 
 ## Unique Features
