@@ -1,40 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Teachamon | Educational Web App Game
+<p align="center"> <img src="public/Screenshot 2568-03-31 at 09.47.59.png" width="300"/> </p> <p align="center"><i><b>Figure 1:</b> Log in/Sign up page</i></p> <p align="center"> <img src="public/Screenshot 2568-03-31 at 09.53.50.png" width="300"/> </p> <p align="center"><i><b>Figure 2:</b> Home page</i></p>
+
+## Unique Features
+### 1. Train Your Monster
+Teachamon combines education with fun by allowing players to train their monsters with subjects of their choice.
+
+In the "Training Monster" section, users can select a subject to begin their training journey.
+
+<p align="center"> <img src="public/Screenshot 2568-03-31 at 10.39.08.png" width="300"/> </p> <p align="center"><i><b>Figure 3:</b> Select subject to train</i></p>
+Training takes place through a series of interactive choices, making learning more engaging.
+
+<p align="center"> <img src="public/Screenshot 2568-03-31 at 09.54.12.png" width="300"/> </p> <p align="center"><i><b>Figure 4:</b> Training by choices</i></p>
+After making selections, players can validate their answers with AI-powered feedback.
+
+<p align="center"> <img src="public/Screenshot 2568-03-31 at 09.54.28.png" width="300"/> </p> <p align="center"><i><b>Figure 5:</b> Training by filling in the answer and AI answer validation</i></p>
+
+### 2. Battle with Friends
+In the "Battle with Friend" feature, players can challenge their friends in real-time quiz battles.
+
+Before the battle begins, players enter a waiting room while the system matches them up.
+
+<p align="center"> <img src="public/Screenshot 2568-03-31 at 09.54.47.png" width="300"/> </p> <p align="center"><i><b>Figure 6:</b> Waiting room</i></p>
+Once the match is ready, players face off in an interactive quiz battle where both their knowledge and their monsters' skills are tested.
+
+<p align="center"> <img src="public/Screenshot 2568-03-31 at 09.54.56.png" width="300"/> </p> <p align="center"><i><b>Figure 7:</b> Battle field</i></p>
 
 ## Getting Started
+Clone the repository:
+``` git clone https://github.com/your-repository/teachamon ```
 
-First, run the development server:
+Install dependencies:
+``` npm install ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Run the development server:
+``` npm start ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to start playing and learning!
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### or
+Visit `https://teachamon.vercel.app`
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### To log in 
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+username: Demo
 
-## Learn More
+password: 1234
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Enjoy!
